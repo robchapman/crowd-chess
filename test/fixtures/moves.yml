@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_id: one
+  end_id: one
+  team: one
+  piece: one
+
+two:
+  start_id: two
+  end_id: two
+  team: two
+  piece: two
