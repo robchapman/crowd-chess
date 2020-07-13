@@ -1,0 +1,11 @@
+<% board.each do |row| %>
+  <div class="row">
+    <% row.each do |space|%>
+    <div class="col board-square board-<%= space.team.colour %>">
+      <% unless space.piece.nil? %>
+        <i class="fas fa-chess-<%= space.piece.type.downcase %> fa-2x piece-<%= space.piece.team.colour %>" ></i>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+<% end %>
