@@ -10,10 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_12_121721) do
+ActiveRecord::Schema.define(version: 2020_07_13_083621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bishops", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "boards", force: :cascade do |t|
     t.bigint "game_id", null: false
@@ -36,6 +41,16 @@ ActiveRecord::Schema.define(version: 2020_07_12_121721) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "kings", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "knights", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "moves", force: :cascade do |t|
     t.bigint "start_id", null: false
     t.bigint "end_id", null: false
@@ -47,6 +62,11 @@ ActiveRecord::Schema.define(version: 2020_07_12_121721) do
     t.index ["piece_id"], name: "index_moves_on_piece_id"
     t.index ["start_id"], name: "index_moves_on_start_id"
     t.index ["team_id"], name: "index_moves_on_team_id"
+  end
+
+  create_table "pawns", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "pieces", force: :cascade do |t|
@@ -66,13 +86,27 @@ ActiveRecord::Schema.define(version: 2020_07_12_121721) do
     t.index ["user_id"], name: "index_plays_on_user_id"
   end
 
+  create_table "queens", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "rooks", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "spaces", force: :cascade do |t|
     t.integer "row"
     t.integer "column"
     t.bigint "board_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "piece_id"
+    t.bigint "team_id", null: false
     t.index ["board_id"], name: "index_spaces_on_board_id"
+    t.index ["piece_id"], name: "index_spaces_on_piece_id"
+    t.index ["team_id"], name: "index_spaces_on_team_id"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -89,8 +123,12 @@ ActiveRecord::Schema.define(version: 2020_07_12_121721) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "chat_colour"
+    t.string "nickname"
+    t.bigint "team_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["team_id"], name: "index_users_on_team_id"
   end
 
   add_foreign_key "boards", "games"
@@ -104,4 +142,7 @@ ActiveRecord::Schema.define(version: 2020_07_12_121721) do
   add_foreign_key "plays", "games"
   add_foreign_key "plays", "users"
   add_foreign_key "spaces", "boards"
+  add_foreign_key "spaces", "pieces"
+  add_foreign_key "spaces", "teams"
+  add_foreign_key "users", "teams"
 end

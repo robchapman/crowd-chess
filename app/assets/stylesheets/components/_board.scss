@@ -1,0 +1,21 @@
+.board-square {
+  height: 50px;
+  width: 50px;
+  border: 1px solid black;
+}
+
+.board-white {
+  background-color: #D6D6D6;
+}
+
+.board-black {
+  background-color: #333333;
+}
+
+.piece-white{
+  color: #F5F5F5;
+}
+
+.piece-black{
+  color: #141414;
+}
