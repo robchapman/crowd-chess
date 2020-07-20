@@ -1,21 +1,37 @@
+.board-container {
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+  column-gap: 0px;
+}
+
 .board-square {
   height: 50px;
   width: 50px;
-  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .board-white {
   background-color: #D6D6D6;
+  border: 1px solid black;
 }
 
 .board-black {
   background-color: #333333;
+  border: 1px solid black;
+}
+
+.board-label {
+
 }
 
 .piece-white{
   color: #F5F5F5;
+  text-shadow: 0 0 3px #000;
 }
 
 .piece-black{
   color: #141414;
+  text-shadow: 0 0 3px #000;
 }

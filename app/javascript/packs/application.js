@@ -15,3 +15,21 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+//External Imports
+import "bootstrap";
+import GameSpace from "../components/game_space";
+
+
+document.addEventListener('turbolinks:load', () => {
+  // Marty Magic
+  const initPlugin = (querySelector, Component) => {
+    const els = document.querySelectorAll(querySelector);
+    if (els) {
+      els.forEach(el => {
+        Component(el);
+      });
+    }
+  };
+initPlugin(".js-game-space", GameSpace);
+});

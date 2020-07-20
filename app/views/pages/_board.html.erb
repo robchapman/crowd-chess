@@ -1,11 +1,19 @@
-<% board.each do |row| %>
-  <div class="row">
-    <% row.each do |space|%>
-    <div class="col board-square board-<%= space.team.colour %>">
-      <% unless space.piece.nil? %>
-        <i class="fas fa-chess-<%= space.piece.type.downcase %> fa-2x piece-<%= space.piece.team.colour %>" ></i>
+<div class="d-flex justify-content-center align-items-center">
+  <div class="board-container">
+  <% board.each do |row| %>
+      <% row.each do |element|%>
+        <% if element.is_a? Space %>
+        <div class="board-square board-<%= element.team.colour %> js-game-space" data-row=<%= element.row %> data-column=<%= element.column %> data-piece=<%= element&.piece&.id %>>
+          <% unless element.piece.nil? %>
+            <i class="fas fa-chess-<%= element.piece.type.downcase %> fa-2x piece-<%= element.piece.team.colour %>" ></i>
+          <% end %>
+        </div>
+        <% else %>
+        <div class="board-square board-label">
+          <h2> <%= element %> </h2>
+        </div>
+        <% end %>
       <% end %>
-    </div>
-    <% end %>
+  <% end %>
   </div>
-<% end %>
+</div>
