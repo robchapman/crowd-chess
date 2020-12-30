@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_13_083621) do
+ActiveRecord::Schema.define(version: 2020_12_30_160815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,12 @@ ActiveRecord::Schema.define(version: 2020_07_13_083621) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["game_id"], name: "index_boards_on_game_id"
+  end
+
+  create_table "channels", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "chats", force: :cascade do |t|
@@ -49,6 +55,16 @@ ActiveRecord::Schema.define(version: 2020_07_13_083621) do
   create_table "knights", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "channel_id", null: false
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["channel_id"], name: "index_messages_on_channel_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "moves", force: :cascade do |t|
@@ -134,6 +150,8 @@ ActiveRecord::Schema.define(version: 2020_07_13_083621) do
   add_foreign_key "boards", "games"
   add_foreign_key "chats", "games"
   add_foreign_key "chats", "teams"
+  add_foreign_key "messages", "channels"
+  add_foreign_key "messages", "users"
   add_foreign_key "moves", "pieces"
   add_foreign_key "moves", "spaces", column: "end_id"
   add_foreign_key "moves", "spaces", column: "start_id"
