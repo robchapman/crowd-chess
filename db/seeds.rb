@@ -5,34 +5,37 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-puts "Cleaning database..."
+puts 'Cleaning database...'
 Space.destroy_all
 Piece.destroy_all
 Play.destroy_all
+Message.destroy_all
 User.destroy_all
-Chat.destroy_all
+Channel.destroy_all
 Team.destroy_all
 Board.destroy_all
 Game.destroy_all
 Move.destroy_all
-puts "Clean!"
 
-puts "Creating Teams..."
+puts 'Clean!'
+
+puts 'Creating Teams...'
 black = Team.create!(colour: 'black')
 white = Team.create!(colour: 'white')
+general = Team.create!(colour: 'none')
 teams = [white, black]
-puts "Created Teams!"
+puts 'Created Teams!'
 
-puts "Creating Game..."
+puts 'Creating Game...'
 game = Game.create!
-puts "Created Game!"
+puts 'Created Game!'
 
-puts "Creating Board..."
+puts 'Creating Board...'
 board = Board.new(game: game)
 board.save!
-puts "Created Board!"
+puts 'Created Board!'
 
-puts "Creating Spaces"
+puts 'Creating Spaces'
 spaces = []
 (0..7).each do |row|
   spaces_row = []
@@ -42,9 +45,9 @@ spaces = []
   end
   spaces << spaces_row
 end
-puts "Created Spaces!"
+puts 'Created Spaces!'
 
-puts "Creating Pieces and Chats..."
+puts 'Creating Pieces and Channels...'
 pieces = { white: {}, black: {} }
 teams.each do |team|
   # Pawns
@@ -73,12 +76,18 @@ teams.each do |team|
   # Kings
   pieces[team.colour.to_sym][:king] = []
   pieces[team.colour.to_sym][:king] << King.create!(team: team)
-  # Chat
-  Chat.create!(game: game, team: team)
+  # Channel
 end
-puts "Created Pieces and Chats!"
 
-puts "Placing Pieces..."
+# Channels
+channels = []
+channels << Channel.create!(game: game, team: general, name: "general")
+channels << Channel.create!(game: game, team: white, name: "white")
+channels << Channel.create!(game: game, team: black, name: "black")
+
+puts 'Created Pieces and Channels!'
+
+puts 'Placing Pieces...'
 # Place White at bottom always
 # Black
 # Back Row
@@ -115,13 +124,42 @@ spaces.each do |row|
   end
 end
 
-puts "Placed Pieces!"
+puts 'Placed Pieces!'
 
-puts "Creating Users..."
-rob = User.create!(email: 'robchapman94@gmail.com', password: 'password', nickname: 'rob', team: white)
-puts "Created Users!"
+# Create Users and plays
+puts('Creating Users...')
+users = [
+  { email: 'rob@email.com', password: 'password', nickname: 'rob', team: white },
+  { email: 'amelia@email.com', password: 'password', nickname: 'amelia', team: white },
+  { email: 'lauren@email.com', password: 'password', nickname: 'lauren', team: black },
+  { email: 'julie@email.com', password: 'password', nickname: 'jools', team: black },
+  { email: 'philip@email.com', password: 'password', nickname: 'phil', team: black }
+]
+users.map! do |user|
+  last_user = User.create!(user)
+  Play.create!(user: last_user, game: game)
+  last_user
+end
+puts('Users created and playing game.')
 
-puts "Creating Play of Game..."
-Play.create!(user: rob, game: game)
-puts "Playing Game"
+# Create Messages
+puts('Creating Messages...')
+messages = [
+  { user: users[0], channel: channels[0], content: 'Hi guys!' },
+  { user: users[1], channel: channels[0], content: 'hey :)' },
+  { user: users[2], channel: channels[0], content: 'wassup' },
+  { user: users[0], channel: channels[0], content: 'Hope this thing works' },
+  { user: users[1], channel: channels[0], content: 'me too' },
+  { user: users[0], channel: channels[1], content: 'Hi guys! Different Channel' },
+  { user: users[1], channel: channels[1], content: 'Yeh not bad' },
+  { user: users[2], channel: channels[1], content: 'prefered the other one' },
+  { user: users[0], channel: channels[1], content: 'wow' },
+  { user: users[1], channel: channels[1], content: 'wowee' },
+  { user: users[0], channel: channels[2], content: 'and another one' },
+  { user: users[1], channel: channels[2], content: 'we could also have a chat in here' }
+]
 
+messages.each do |message|
+  Message.create!(message)
+end
+puts('Messages created.')
