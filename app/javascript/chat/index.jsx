@@ -24,13 +24,15 @@ const identityReducer = (state = null, action) => state;
 const initialState = {
   messages: [],
   channels: JSON.parse(chatContainer.dataset.channelnames),
-  selectedChannel: 'general'
+  selectedChannel: 'general',
+  currentGame: JSON.parse(chatContainer.dataset.game)
 };
 
 const reducers = combineReducers({
   messages: messagesReducer,
   channels: identityReducer,
-  selectedChannel: selectedChannelReducer
+  selectedChannel: selectedChannelReducer,
+  currentGame: identityReducer
 });
 
 

@@ -6,7 +6,7 @@ class Api::V1::MessagesController < ApplicationController
     messages_new = messages.map do |message|
       {
         "id": message.id,
-        "author": message.user.email,
+        "author": message.user.nickname,
         "content": message.content,
         "created_at": message.created_at
       }
