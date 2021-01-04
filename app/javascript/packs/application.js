@@ -31,5 +31,5 @@ document.addEventListener('turbolinks:load', () => {
       });
     }
   };
-initPlugin(".js-game-space", GameSpace);
+  initPlugin(".js-game-space", GameSpace);
 });

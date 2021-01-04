@@ -1,5 +1,5 @@
 const GameSpace = gameSpace => {
-  console.log(gameSpace.dataset)
+  // console.log(gameSpace.dataset)
 };
 
 export default GameSpace;
