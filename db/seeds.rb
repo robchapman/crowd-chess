@@ -145,17 +145,17 @@ puts('Users created and playing game.')
 # Create Messages
 puts('Creating Messages...')
 messages = [
-  { user: users[0], channel: channels[0], content: 'Hi guys!' },
+  { user: users[0], channel: channels[0], content: 'Hi guys!, general channel' },
   { user: users[1], channel: channels[0], content: 'hey :)' },
   { user: users[2], channel: channels[0], content: 'wassup' },
   { user: users[0], channel: channels[0], content: 'Hope this thing works' },
   { user: users[1], channel: channels[0], content: 'me too' },
-  { user: users[0], channel: channels[1], content: 'Hi guys! Different Channel' },
+  { user: users[0], channel: channels[1], content: 'Hi guys! White Channel' },
   { user: users[1], channel: channels[1], content: 'Yeh not bad' },
   { user: users[2], channel: channels[1], content: 'prefered the other one' },
   { user: users[0], channel: channels[1], content: 'wow' },
   { user: users[1], channel: channels[1], content: 'wowee' },
-  { user: users[0], channel: channels[2], content: 'and another one' },
+  { user: users[0], channel: channels[2], content: 'and another one, black channel' },
   { user: users[1], channel: channels[2], content: 'we could also have a chat in here' }
 ]
 

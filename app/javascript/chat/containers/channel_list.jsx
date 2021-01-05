@@ -8,8 +8,7 @@ import { selectChannel, fetchMessages } from '../actions/index';
 class ChannelList extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedChannel !== this.props.selectedChannel) {
-      this.props.fetchMessages(nextProps.selectedChannel);
-    }
+    this.props.fetchMessages(this.props.currentGame, this.props.selectedChannel);    }
   }
 
   handleClick = (channel) => {
@@ -44,7 +43,8 @@ class ChannelList extends Component {
 function mapStateToProps(state) {
   return {
     channels: state.channels,
-    selectedChannel: state.selectedChannel
+    selectedChannel: state.selectedChannel,
+    currentGame: state.currentGame
   };
 }
 
