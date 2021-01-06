@@ -6,9 +6,18 @@ import { fetchMessages } from '../actions';
 import Message from '../components/message';
 import MessageForm from '../containers/message_form';
 
+import consumer from "../../channels/consumer"
+
 class MessageList extends Component {
+
   componentWillMount() {
     this.fetchMessages();
+
+    consumer.subscriptions.create("ChatChannel", {
+      received(data) {
+        // Called when there's incoming data on the websocket for this channel
+        this.fetchMessages();      }
+    });
   }
 
     // componentDidMount() {

@@ -15,6 +15,7 @@ class Api::V1::MessagesController < ApplicationController
   end
 
   def create
+    # TODO: Validations on message content format
     message = Message.create(content: message_params[:content], user: current_user, channel: @channel)
     message_new = {
       "id": message.id,
@@ -22,6 +23,11 @@ class Api::V1::MessagesController < ApplicationController
       "content": message.content,
       "created_at": message.created_at
     }
+    ActionCable.server.broadcast 'chat_channel',
+      "id": message.id,
+      "author": message.user.nickname,
+      "content": message.content,
+      "created_at": message.created_at
     render json: message_new
   end
 
