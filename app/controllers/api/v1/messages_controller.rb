@@ -20,7 +20,7 @@ class Api::V1::MessagesController < ApplicationController
     message = Message.create(content: message_params[:content], user: current_user, channel: @channel)
     message_new = {
       "id": message.id,
-      "author": message.user.nickname,
+      "author": current_user ? message.user.nickname : cookies[:anonNickname] || 'Anon',
       "content": message.content,
       "created_at": message.created_at
     }

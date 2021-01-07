@@ -18,9 +18,19 @@ class PagesController < ApplicationController
 
     # If no User logged create or username in session
     # generate Anon Username and store in session
-    time_num = (Time.now.to_f * 10_000_000).to_i
-    Faker::Config.random = time_num
-    puts Faker::
+    if current_user.nil? && cookies[:anonNickname].nil?
+      count = 0
+      new_anon_user = AnonUser.new(nickname: generate_username)
+      until new_anon_user.save
+        if count > 10
+          new_anon_user = AnonUser.new(nickname: generate_username)
+        else
+          count += 1
+          new_anon_user = AnonUser.new(nickname: generate_username_numbered)
+        end
+      end
+      cookies[:anonNickname] = new_anon_user.nickname
+    end
     # Buil Board
     board
   end
@@ -44,5 +54,18 @@ class PagesController < ApplicationController
     @game.board.spaces.each do |space|
       @board_grid[space.row + 1][space.column + 1] = space
     end
+  end
+
+  def generate_username
+      verb = Faker::Verb.past_participle
+      animal = Faker::Creature::Animal.name
+      "#{verb}-#{animal}"
+  end
+
+  def generate_username_numbered
+    verb = Faker::Verb.past_participle
+    animal = Faker::Creature::Animal.name
+    number = Faker::Number.number(digits: 2)
+    "#{verb}-#{animal}-#{number}"
   end
 end
