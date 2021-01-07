@@ -1,9 +1,14 @@
+require 'faker'
+
 class PagesController < ApplicationController
   def home
   end
 
   def play
+    # Get latest game for React Actions requests
     @game = Game.last
+
+    # Get intial Channel names state(should not change)
     @channel_names = @game.channels.map { |channel| channel.name }
     if @channel_names.include?('general')
       @selected_channel = 'general'
@@ -11,6 +16,29 @@ class PagesController < ApplicationController
       @selected_channel = @channel_names[0]
     end
 
+    # If no User logged create or username in session
+    # generate Anon Username and store in session
+    if current_user.nil? && cookies[:anonNickname].nil?
+      count = 0
+      new_anon_user = AnonUser.new(nickname: generate_username)
+      until new_anon_user.save
+        if count > 10
+          new_anon_user = AnonUser.new(nickname: generate_username)
+        else
+          count += 1
+          new_anon_user = AnonUser.new(nickname: generate_username_numbered)
+        end
+      end
+      cookies[:anonNickname] = new_anon_user.nickname
+    end
+    # Buil Board
+    board
+  end
+
+  private
+
+  def board
+    # Produce board array to be rendered(with labels)
     @board_grid = Array.new(10) { Array.new(10) }
     # Adding Labels
     @board_grid[0][1..8] = ('a'..'h').to_a
@@ -26,5 +54,18 @@ class PagesController < ApplicationController
     @game.board.spaces.each do |space|
       @board_grid[space.row + 1][space.column + 1] = space
     end
+  end
+
+  def generate_username
+      verb = Faker::Verb.past_participle
+      animal = Faker::Creature::Animal.name
+      "#{verb}-#{animal}"
+  end
+
+  def generate_username_numbered
+    verb = Faker::Verb.past_participle
+    animal = Faker::Creature::Animal.name
+    number = Faker::Number.number(digits: 2)
+    "#{verb}-#{animal}-#{number}"
   end
 end
