@@ -16,6 +16,7 @@ class Api::V1::MessagesController < ApplicationController
 
   def create
     # TODO: Validations on message content format
+    # TODO: allow anon chatting
     message = Message.create(content: message_params[:content], user: current_user, channel: @channel)
     message_new = {
       "id": message.id,
