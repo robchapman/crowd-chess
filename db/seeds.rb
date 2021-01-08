@@ -11,6 +11,7 @@ Piece.destroy_all
 Play.destroy_all
 Message.destroy_all
 User.destroy_all
+AnonUser.destroy_all
 Channel.destroy_all
 Team.destroy_all
 Board.destroy_all
