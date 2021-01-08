@@ -1,6 +1,6 @@
 .board-container {
-  height: 50vh;
-  width: 50vh;
+  height: 48vh;
+  width: 48vh;
   display: grid;
   // grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -10,6 +10,9 @@
   background: #f4f4f4;
   box-sizing: border-box;
   border: solid #555555 2px;
+  border-radius: 5px;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
 }
 
 .board-square {
@@ -36,7 +39,7 @@
   justify-content: center;
   align-items: center;
   h2 {
-    font-size: 3vh;
+    font-size: 2vh;
     margin: 0;
   }
 }

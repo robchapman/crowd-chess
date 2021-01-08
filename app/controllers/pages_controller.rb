@@ -33,6 +33,8 @@ class PagesController < ApplicationController
     end
     # Buil Board
     board
+
+    @nickname = current_user || cookies[:anonNickname] || "anon"
   end
 
   private

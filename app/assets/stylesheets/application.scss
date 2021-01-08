@@ -3,9 +3,14 @@
 @import "font-awesome";
 @import "bootstrap/scss/bootstrap";
 
-// Your CSS partials
+//Colours
+@import "colours";
+
+// CSS partials
 @import "components/index";
 
+
+
 body {
-  background-color: #EB961E;
+  background-color: $background-orange;
 }
