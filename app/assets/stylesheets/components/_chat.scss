@@ -6,6 +6,7 @@ body {
   display: flex;
   justify-content: center;
   // align-items: center;
+  margin-bottom: 1vh;
 }
 
 .messaging-wrapper {
@@ -13,7 +14,6 @@ body {
   flex-direction: column;
   // justify-content: center;
   // align-items: center;
-  height: 48vh;
 }
 
 
@@ -23,8 +23,10 @@ body {
   // padding: 20px;
   // width: 220px;
   // height: 100%;
-  background: #f4f4f4;
+  background: $off-white;
   box-sizing: border-box;
+  // height: 46vh;
+  height: 3vh;
 }
 
 .channels-container > span {
@@ -44,13 +46,16 @@ body {
   font-size: 2vh;
   color: #7c7c7c;
   cursor: pointer;
-  border: solid #555555 2px;
+  border: solid #555555 1px;
+  border-top: solid #555555 2px;
+  border-radius: 5px 5px 0px 0px;
   background: #f4f4f4;
+  padding: 3px;
 }
 
 .channels-container > ul > li.active {
-  font-weight: 600;
-  color: #f4f4f4;
+  // font-weight: 600;
+  color: $off-white;
   background: #555555;
 }
 
@@ -59,11 +64,21 @@ body {
 .channel-container {
   display: flex;
   flex-direction: column;
-  width: 48vh;
+  width: 49vh;
   border: solid #555555 2px;
   border-radius: 5px;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
+  background-color: $off-white;
+  height: 46vh;
+}
+
+.channel-heading {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #555555;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 1.5vh;
+  height: 5%;
 }
 
 .channel-title {
@@ -71,20 +86,30 @@ body {
   align-items: center;
   box-sizing: border-box;
   padding-left: 28px;
-  height: 70px;
-  width: 100%;
-  border-bottom: 1px solid #f4f4f4;
+  color: $off-white;
 }
 
 .channel-title > span {
   font-weight: 600;
 }
 
+.channel-nickname {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding-right: 28px;
+}
+
+.channel-nickname > span {
+
+}
+
+
 .channel-content {
   padding: 20px 20px 0 28px;
   box-sizing: border-box;
-  height: 100%;
   overflow: scroll;
+  height: 75%;
 }
 
 .message-container > i {
@@ -115,7 +140,7 @@ body {
   display: flex;
   padding: 20px;
   box-sizing: border-box;
-  height: 90px;
+  height: 20%;
   border-top: 1px solid #f4f4f4;
 }
 
@@ -133,7 +158,7 @@ button {
   border-radius: 0 2px 2px 0;
   box-shadow: 0 1px 2px rgba(0,0,0,0.07);
   border: none;
-  background-color: #D23333;
+  background-color: $background-orange;
   color: white;
   font-size: 14px;
   font-weight: 600;
