@@ -7,9 +7,9 @@
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   column-gap: 0px;
 
-  background: #f4f4f4;
+  background: $off-white;
   box-sizing: border-box;
-  border: solid #555555 2px;
+  border: solid $board-black 2px;
   border-radius: 5px;
   margin-top: 1vh;
   margin-bottom: 1vh;
@@ -25,12 +25,12 @@
 }
 
 .board-white {
-  background-color: #D6D6D6;
+  background-color: $board-white;
   border: 1px solid black;
 }
 
 .board-black {
-  background-color: #555555;
+  background-color: $board-black;
   border: 1px solid black;
 }
 
@@ -45,11 +45,11 @@
 }
 
 .piece-white{
-  color: #F5F5F5;
+  color: $piece-white;
   text-shadow: 0 0 3px #000;
 }
 
 .piece-black{
-  color: #141414;
+  color: $piece-black;
   text-shadow: 0 0 3px #000;
 }

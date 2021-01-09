@@ -44,19 +44,19 @@ body {
   display: inline-block;
   margin: 0;
   font-size: 2vh;
-  color: #7c7c7c;
+  color: $board-black;
   cursor: pointer;
-  border: solid #555555 1px;
-  border-top: solid #555555 2px;
+  border: solid $board-black 1px;
+  border-top: solid $board-black 2px;
   border-radius: 5px 5px 0px 0px;
-  background: #f4f4f4;
+  background: $off-white;
   padding: 3px;
 }
 
 .channels-container > ul > li.active {
   // font-weight: 600;
   color: $off-white;
-  background: #555555;
+  background: $board-black;
 }
 
 /* Message Section *****************************************************************/
@@ -65,7 +65,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 49vh;
-  border: solid #555555 2px;
+  border: solid $board-black 2px;
   border-radius: 5px;
   background-color: $off-white;
   height: 46vh;
@@ -74,7 +74,7 @@ body {
 .channel-heading {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #555555;
+  border-bottom: 1px solid $board-black;
   padding-top: 5px;
   padding-bottom: 5px;
   font-size: 1.5vh;
