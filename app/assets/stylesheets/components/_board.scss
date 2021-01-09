@@ -44,12 +44,20 @@
   }
 }
 
-.piece-white{
-  color: $piece-white;
-  text-shadow: 0 0 3px #000;
+.board-move-option {
+  box-shadow: inset 0 0 0.1em 0.05em $move-option, inset 0 0 0.2em 0.1em $move-option-light,inset 0 0 0.3em 0.2em $move-option-lighter;
 }
 
-.piece-black{
+.piece-white {
+  color: $piece-white;
+  text-shadow: 0 0 0.2em #525252;
+}
+
+.piece-black {
   color: $piece-black;
-  text-shadow: 0 0 3px #000;
+  text-shadow: 0 0 0.2em #525252;
+}
+
+.piece-selected {
+  text-shadow: 0 0 0.2em $orange, 0 0 0.4em $lighter-orange, 0 0 0.6em $lightest-orange;
 }

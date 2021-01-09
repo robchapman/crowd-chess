@@ -64,7 +64,7 @@ body {
 .channel-container {
   display: flex;
   flex-direction: column;
-  width: 49vh;
+  width: 48vh;
   border: solid $board-black 2px;
   border-radius: 5px;
   background-color: $off-white;
@@ -109,6 +109,7 @@ body {
   padding: 20px 20px 0 28px;
   box-sizing: border-box;
   overflow: scroll;
+  overflow-x: hidden;
   height: 75%;
 }
 
