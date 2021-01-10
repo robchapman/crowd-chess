@@ -7,9 +7,9 @@
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   column-gap: 0px;
 
-  background: #f4f4f4;
+  background: $off-white;
   box-sizing: border-box;
-  border: solid #555555 2px;
+  border: solid $board-black 2px;
   border-radius: 5px;
   margin-top: 1vh;
   margin-bottom: 1vh;
@@ -25,12 +25,12 @@
 }
 
 .board-white {
-  background-color: #D6D6D6;
+  background-color: $board-white;
   border: 1px solid black;
 }
 
 .board-black {
-  background-color: #555555;
+  background-color: $board-black;
   border: 1px solid black;
 }
 
@@ -44,12 +44,20 @@
   }
 }
 
-.piece-white{
-  color: #F5F5F5;
-  text-shadow: 0 0 3px #000;
+.board-move-option {
+  box-shadow: inset 0 0 0.1em 0.05em $move-option, inset 0 0 0.2em 0.1em $move-option-light,inset 0 0 0.3em 0.2em $move-option-lighter;
 }
 
-.piece-black{
-  color: #141414;
-  text-shadow: 0 0 3px #000;
+.piece-white {
+  color: $piece-white;
+  text-shadow: 0 0 0.2em #525252;
+}
+
+.piece-black {
+  color: $piece-black;
+  text-shadow: 0 0 0.2em #525252;
+}
+
+.piece-selected {
+  text-shadow: 0 0 0.2em $orange, 0 0 0.4em $lighter-orange, 0 0 0.6em $lightest-orange;
 }

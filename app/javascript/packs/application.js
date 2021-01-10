@@ -21,8 +21,8 @@ import "bootstrap";
 import GameSpace from "../components/game_space";
 
 
+// Marty Magic
 document.addEventListener('turbolinks:load', () => {
-  // Marty Magic
   const initPlugin = (querySelector, Component) => {
     const els = document.querySelectorAll(querySelector);
     if (els) {

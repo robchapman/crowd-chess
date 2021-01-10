@@ -3,7 +3,7 @@
   <% board.each do |row| %>
       <% row.each do |element|%>
         <% if element.is_a? Space %>
-        <div class="board-square board-<%= element.team.colour %> js-game-space" data-row=<%= element.row %> data-column=<%= element.column %> data-piece=<%= element&.piece&.id %>>
+        <div class="board-square board-<%= element.team.colour %> js-game-space" data-row=<%= element.row %> data-column=<%= element.column%> data-piece=<%= element&.piece&.id %>>
           <% unless element.piece.nil? %>
             <i class="fas fa-chess-<%= element.piece.type.downcase %> piece-<%= element.piece.team.colour %>" ></i>
           <% end %>
