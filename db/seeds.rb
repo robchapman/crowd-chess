@@ -5,6 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
+
+def generate_username
+  verb = Faker::Verb.past_participle
+  animal = Faker::Creature::Animal.name
+  "#{verb}-#{animal}"
+end
+
 puts 'Cleaning database...'
 Space.destroy_all
 Piece.destroy_all
@@ -130,11 +138,11 @@ puts 'Placed Pieces!'
 # Create Users and plays
 puts('Creating Users...')
 users = [
-  { email: 'rob@email.com', password: 'password', nickname: 'rob', team: white },
-  { email: 'amelia@email.com', password: 'password', nickname: 'amelia', team: white },
-  { email: 'lauren@email.com', password: 'password', nickname: 'lauren', team: black },
-  { email: 'julie@email.com', password: 'password', nickname: 'jools', team: black },
-  { email: 'philip@email.com', password: 'password', nickname: 'phil', team: black }
+  { email: 'rob@email.com', password: 'password', nickname: "#{generate_username}", team: white },
+  { email: 'amelia@email.com', password: 'password', nickname: "#{generate_username}", team: white },
+  { email: 'lauren@email.com', password: 'password', nickname: "#{generate_username}", team: black },
+  { email: 'julie@email.com', password: 'password', nickname: "#{generate_username}", team: black },
+  { email: 'philip@email.com', password: 'password', nickname: "#{generate_username}", team: black }
 ]
 users.map! do |user|
   last_user = User.create!(user)
@@ -146,21 +154,23 @@ puts('Users created and playing game.')
 # Create Messages
 puts('Creating Messages...')
 messages = [
-  { user: users[0], channel: channels[0], content: 'Hi guys!, general channel' },
+  { user: users[0], channel: channels[0], content: 'Hi guys!' },
   { user: users[1], channel: channels[0], content: 'hey :)' },
   { user: users[2], channel: channels[0], content: 'wassup' },
   { user: users[0], channel: channels[0], content: 'Hope this thing works' },
   { user: users[1], channel: channels[0], content: 'me too' },
-  { user: users[0], channel: channels[1], content: 'Hi guys! White Channel' },
+  { user: users[0], channel: channels[1], content: 'Hi guys!' },
   { user: users[1], channel: channels[1], content: 'Yeh not bad' },
   { user: users[2], channel: channels[1], content: 'prefered the other one' },
   { user: users[0], channel: channels[1], content: 'wow' },
   { user: users[1], channel: channels[1], content: 'wowee' },
-  { user: users[0], channel: channels[2], content: 'and another one, black channel' },
-  { user: users[1], channel: channels[2], content: 'we could also have a chat in here' }
+  { user: users[0], channel: channels[2], content: 'hey' },
+  { user: users[1], channel: channels[2], content: 'hi hi hi hi' }
 ]
 
 messages.each do |message|
   Message.create!(message)
 end
 puts('Messages created.')
+
+
