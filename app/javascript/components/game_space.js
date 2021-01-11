@@ -1,14 +1,14 @@
 const GameSpace = gameSpace => {
 gameSpace.addEventListener("click", ()=> {
   // Turn off all selected elements on page
-  const prevSelected = document.querySelectorAll("piece-selected");
+  const prevSelected = document.querySelector(".piece-selected");
+  // console.log(prevSelected);
   if (prevSelected) {
-    els.forEach(el => {
-      prevSelected.classList.remove("piece-selected");
-      gameSpace.children[0].classList.toggle("piece-selected");
-    });
+    prevSelected.classList.remove("piece-selected");
+    gameSpace.children[0].classList.toggle("piece-selected");
+  } else {
+    gameSpace.children[0].classList.add("piece-selected");
   }
-  gameSpace.children[0].classList.toggle("piece-selected");
   });
 };
 

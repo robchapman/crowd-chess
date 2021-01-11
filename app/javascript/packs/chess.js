@@ -1,0 +1,1 @@
+import '../chess/index.jsx';
