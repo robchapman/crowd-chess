@@ -32,14 +32,14 @@ class PagesController < ApplicationController
       cookies[:anonNickname] = new_anon_user.nickname
     end
     # Buil Board
-    board
+    board_reset
 
     @nickname = current_user || cookies[:anonNickname] || "anon"
   end
 
   private
 
-  def board
+  def board_reset
     # Produce board array to be rendered(with labels)
     @board_grid = Array.new(10) { Array.new(10) }
     # Adding Labels
@@ -59,9 +59,9 @@ class PagesController < ApplicationController
   end
 
   def generate_username
-      verb = Faker::Verb.past_participle
-      animal = Faker::Creature::Animal.name
-      "#{verb}-#{animal}"
+    verb = Faker::Verb.past_participle
+    animal = Faker::Creature::Animal.name
+    "#{verb}-#{animal}"
   end
 
   def generate_username_numbered
