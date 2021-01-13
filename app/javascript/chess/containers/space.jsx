@@ -7,7 +7,7 @@ class Space extends Component {
 
   render() {
     return (
-      <div className="clock-timer">
+      <div className="board-space">
 
       </div>
     );

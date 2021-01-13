@@ -7,7 +7,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 // Middleware
 import logger from 'redux-logger'
 import ReduxPromise from 'redux-promise';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+// import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 //Internal Modules
 import App from './components/app';
