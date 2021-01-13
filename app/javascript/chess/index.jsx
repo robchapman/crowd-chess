@@ -22,14 +22,17 @@ const chessContainer = document.getElementById('chess_app');
 const identityReducer = (state = null, action) => state;
 
 const initialState = {
-
+  time: null,
+  activeTeam: null,
+  board: null,
+  currentGame: JSON.parse(chessContainer.dataset.game)
 };
 
 const reducers = combineReducers({
-  spaces: spacesReducer,
-  clock: clockReducer,
-  teamBanner: teamBannerReducer,
+  time: timeReducer,
+  activeTeam: activeTeamReducer,
   board: boardReducer
+  currentGame: identityReducer
 });
 
 
