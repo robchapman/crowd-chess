@@ -9,16 +9,4 @@ const Board = () => {
   );
 };
 
-class Space extends Component {
-
-  render() {
-    return (
-      <div className="clock-timer">
-
-      </div>
-    );
-  }
-}
-
-
 export default Board;

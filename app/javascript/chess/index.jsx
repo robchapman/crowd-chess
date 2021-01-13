@@ -13,8 +13,9 @@ import ReduxPromise from 'redux-promise';
 import App from './components/app';
 
 // Reducers
-import messagesReducer from './reducers/messages_reducer';
-import selectedChannelReducer from './reducers/selected_channel_reducer';
+import timeReducer from './reducers/time_reducer';
+import activeTeamReducer from './reducers/active_team_reducer';
+import boardReducer from './reducers/board_reducer';
 
 
 const chessContainer = document.getElementById('chess_app');
@@ -31,7 +32,7 @@ const initialState = {
 const reducers = combineReducers({
   time: timeReducer,
   activeTeam: activeTeamReducer,
-  board: boardReducer
+  board: boardReducer,
   currentGame: identityReducer
 });
 

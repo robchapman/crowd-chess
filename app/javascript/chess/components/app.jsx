@@ -1,6 +1,6 @@
 import React from 'react';
 import GameBar from '../components/game_bar';
-import Board from '../components/board';
+import Board from '../containers/board';
 
 const App = () => {
   return (

@@ -1,11 +1,25 @@
+.chess_app {
+  height: 50%;
+}
+
 .chess-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  height: 100%;
 }
 
 /* Game Bar Section ***********************************************************/
 .game-bar {
+  // height: 4vh;
+  width: 44vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.team-banner {
 
 }
 
@@ -16,8 +30,8 @@
 /* Board Section **************************************************************/
 
 .board-container {
-  height: 48vh;
-  width: 48vh;
+  // height: 44vh;
+  width: 44vh;
   display: grid;
   // grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -28,8 +42,8 @@
   box-sizing: border-box;
   border: solid $board-black 2px;
   border-radius: 5px;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
+  // margin-top: 1vh;
+  // margin-bottom: 1vh;
 }
 
 .board-space {

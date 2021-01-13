@@ -1,11 +1,11 @@
 import React from 'react';
-import GameBar from '../containers/clock';
-import GameBar from '../containers/team_banner';
+import Clock from '../containers/clock';
+import TeamBanner from '../containers/team_banner';
 
 
 const GameBar = () => {
   return (
-    <div className=".game-bar">
+    <div className="game-bar">
         <TeamBanner />
         <Clock />
         <TeamBanner />
