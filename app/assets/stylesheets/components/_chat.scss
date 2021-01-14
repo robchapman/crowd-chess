@@ -1,5 +1,7 @@
-.chat_app {
-  height: 50%;
+#chat_app {
+  // height: 49vh;
+  position: relative;
+  top: 50vh;
 }
 
 body {
@@ -9,24 +11,27 @@ body {
 .messaging-outer-wrapper {
   display: flex;
   justify-content: center;
-  // align-items: center;
-  // margin-bottom: 1vh;
 }
+
+$small: 715px;
 
 .messaging-wrapper {
   display: flex;
   flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
+  @media only screen and (max-width: $small) {
+    width: 98vw;
+  }
+  @media only screen and (min-width: 716px) {
+    width: 700px;
+  }
 }
-
 
 /* Channel Section *****************************************************************/
 
 .channels-container {
   background: $off-white;
   box-sizing: border-box;
-  // height: 3vh;
+  height: 3.5vh;
 }
 
 .channels-container > span {
@@ -54,7 +59,6 @@ body {
 }
 
 .channels-container > ul > li.active {
-  // font-weight: 600;
   color: $off-white;
   background: $board-black;
 }
@@ -64,12 +68,11 @@ body {
 .channel-container {
   display: flex;
   flex-direction: column;
-  width: 48vh;
   border: solid $board-black 2px;
   border-radius: 5px;
   background-color: $off-white;
-  // height: 46vh;
-  height: 100%;
+  height: 42.5vh;
+  width: 100%;
 }
 
 .channel-heading {
@@ -155,13 +158,13 @@ input[type="text"] {
 }
 
 button {
-  padding: 10px 17px;
+  padding: 1px 17px;
   margin-left: -2px;
   border-radius: 0 2px 2px 0;
   box-shadow: 0 1px 2px rgba(0,0,0,0.07);
   border: none;
   background-color: $background-orange;
   color: white;
-  font-size: 14px;
+  font-size: 1.75vh;
   font-weight: 600;
 }

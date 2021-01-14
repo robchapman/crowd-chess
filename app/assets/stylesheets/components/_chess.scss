@@ -1,4 +1,4 @@
-.chess_app {
+#chess_app {
   height: 50%;
 }
 
@@ -13,7 +13,7 @@
 /* Game Bar Section ***********************************************************/
 .game-bar {
   // height: 4vh;
-  width: 44vh;
+  // width: 44vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,9 +31,8 @@
 
 .board-container {
   // height: 44vh;
-  width: 44vh;
+  width: 100%;
   display: grid;
-  // grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   column-gap: 0px;
@@ -47,8 +46,6 @@
 }
 
 .board-space {
-  // height: 100%;
-  // width: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
