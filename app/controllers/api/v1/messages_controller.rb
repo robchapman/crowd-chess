@@ -53,6 +53,6 @@ class Api::V1::MessagesController < ApplicationController
   end
 
   def set_anon_user
-    @anon_user = AnonUser.find_by(nickname: cookies[:anonNickname])
+    @anon_user = AnonUser.find_by(nickname: session[:anonNickname])
   end
 end

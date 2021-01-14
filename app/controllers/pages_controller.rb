@@ -18,7 +18,7 @@ class PagesController < ApplicationController
 
     # If no User logged create or username in session
     # generate Anon Username and store in session
-    if current_user.nil? && cookies[:anonNickname].nil?
+    if current_user.nil? && session[:anonNickname].nil?
       count = 0
       new_anon_user = AnonUser.new(nickname: generate_username)
       until new_anon_user.save
@@ -29,12 +29,12 @@ class PagesController < ApplicationController
           new_anon_user = AnonUser.new(nickname: generate_username_numbered)
         end
       end
-      cookies[:anonNickname] = new_anon_user.nickname
+      session[:anonNickname] = new_anon_user.nickname
     end
     # Buil Board
     board_reset
 
-    @nickname = current_user || cookies[:anonNickname] || "anon"
+    @nickname = current_user || session[:anonNickname] || "anon"
   end
 
   private
