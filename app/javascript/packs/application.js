@@ -34,12 +34,19 @@ document.addEventListener('turbolinks:load', () => {
   initPlugin(".js-game-space", GameSpace);
 });
 
-// window.addEventListener('turbolinks:load', function() { window. scrollTo(0, 0); });
+window.addEventListener('turbolinks:load', () => {
+  const chess = document.querySelector('#chess_app');
+  const chat = document.querySelector('#chat_app');
+  console.log(chat);
+  console.log(chess);
+
+});
 
 // Resize event for input
 
-window.addEventListener('resize', () => {
-  // const chat = document.querySelector('.channel-content');
-  // chat.classList.toggle('hidden-chat');
-});
+// window.addEventListener('resize', () => {
+//   const chat = document.querySelector('.channel-content');
+//   // chat.classList.toggle('hidden-chat');
+//   console.log(chat.offsetHeight);
+// });
 

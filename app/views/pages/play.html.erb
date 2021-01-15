@@ -1,7 +1,5 @@
-<div class="rotation-container">
-  <div id="chess_app" data-game=<%= @game.id.to_json %>></div>
-  <div id="chat_app" data-nickname=<%= @nickname %>  data-game=<%= @game.id.to_json %> data-channelnames=<%=  @channel_names.to_json %> data-selectedchannel=<%=  @selected_channel.to_json %>></div>
-</div>
+<div id="chess_app" data-game=<%= @game.id.to_json %>></div>
+<div id="chat_app" data-nickname=<%= @nickname %>  data-game=<%= @game.id.to_json %> data-channelnames=<%=  @channel_names.to_json %> data-selectedchannel=<%=  @selected_channel.to_json %>></div>
 
 <% content_for :after_js do %>
   <%= javascript_pack_tag "chess" %>
