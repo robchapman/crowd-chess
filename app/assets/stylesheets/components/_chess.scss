@@ -14,24 +14,31 @@
 .game-bar {
   // height: 4vh;
   // width: 44vh;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .team-banner {
-
+  margin: 1% 5%
 }
 
 
 .clock-timer {
-
+  margin: 1% 5%
 }
 /* Board Section **************************************************************/
 
-.board-container {
-  // height: 44vh;
-  width: 100%;
+.board-wrapper {
+
+}
+
+.board {
+  position: absolute;
+  top: 5%;
+  height: 49%;
+  // width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;

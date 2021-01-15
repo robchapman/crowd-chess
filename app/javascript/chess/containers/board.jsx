@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 import GameBar from '../containers/space';
 
-const Board = () => {
-  return (
-    <div className="board-container">
+class Board extends Component {
 
-    </div>
-  );
-};
+  componentDidMount() {
+    const chess_board = document.querySelector(".board");
+    chess_board.style.width = `${chess_board.offsetHeight}px`
+  }
+
+  render() {
+    return (
+        <div className="board">
+
+        </div>
+    );
+  }
+}
 
 export default Board;
+
+
+
+
+
+// var cw = $('.child').width();
+// $('.child').css({'height':cw+'px'});

@@ -1,17 +1,21 @@
 #chat_app {
   // height: 49vh;
-  position: relative;
-  top: 50vh;
+  position: absolute;
+  top: 55%;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 body {
   font-family: 'Open Sans', sans-serif;
 }
 
-.messaging-outer-wrapper {
-  display: flex;
-  justify-content: center;
-}
+// .messaging-outer-wrapper {
+//   display: flex;
+//   justify-content: center;
+// }
 
 $small: 715px;
 
@@ -24,6 +28,7 @@ $small: 715px;
   @media only screen and (min-width: 716px) {
     width: 700px;
   }
+  height: 44%;
 }
 
 /* Channel Section *****************************************************************/
@@ -31,7 +36,7 @@ $small: 715px;
 .channels-container {
   background: $off-white;
   box-sizing: border-box;
-  height: 3.5vh;
+  height: 7.5%;
 }
 
 .channels-container > span {
@@ -71,7 +76,7 @@ $small: 715px;
   border: solid $board-black 2px;
   border-radius: 5px;
   background-color: $off-white;
-  height: 42.5vh;
+  height: 92.5%;
   width: 100%;
 }
 
@@ -167,4 +172,5 @@ button {
   color: white;
   font-size: 1.75vh;
   font-weight: 600;
+  height: 100%;
 }

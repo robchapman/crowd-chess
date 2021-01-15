@@ -7,7 +7,7 @@ class TeamBanner extends Component {
 
   render() {
     return (
-      <div className="team-banner-container">
+      <div className="team-banner">
         BANNER
       </div>
     );

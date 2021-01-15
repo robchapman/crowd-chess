@@ -34,4 +34,5 @@ document.addEventListener('turbolinks:load', () => {
   initPlugin(".js-game-space", GameSpace);
 });
 
-window.addEventListener("load", function() { window. scrollTo(0, 0); });
+window.addEventListener('turbolinks:load', function() { window. scrollTo(0, 0); });
+
