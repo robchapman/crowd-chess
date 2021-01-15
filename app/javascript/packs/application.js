@@ -39,8 +39,7 @@ document.addEventListener('turbolinks:load', () => {
 // Resize event for input
 
 window.addEventListener('resize', () => {
-  const chat = document.querySelector('#chat_app');
-  console.log(chat);
+  const chat = document.querySelector('.channel-content');
   chat.classList.toggle('hidden-chat');
 });
 
