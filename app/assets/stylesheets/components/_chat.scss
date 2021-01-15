@@ -18,14 +18,14 @@ body {
 // }
 
 $small: 715px;
-
+$small-break : 716px;
 .messaging-wrapper {
   display: flex;
   flex-direction: column;
   @media only screen and (max-width: $small) {
     width: 98vw;
   }
-  @media only screen and (min-width: 716px) {
+  @media only screen and (min-width: $small-break) {
     width: 700px;
   }
   height: 44%;
@@ -82,7 +82,7 @@ $small: 715px;
 
 .channel-heading {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   border-bottom: 1px solid $board-black;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -148,7 +148,12 @@ $small: 715px;
 
 .channel-editor {
   display: flex;
-  padding: 20px;
+  @media only screen and (max-width: $small) {
+    padding: 3px;
+  }
+  @media only screen and (min-width: $small-break) {
+    padding: 20px;
+  }
   box-sizing: border-box;
   height: 20%;
   border-top: 1px solid #f4f4f4;

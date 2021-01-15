@@ -42,9 +42,6 @@ class MessageList extends Component {
     return (
       <div className="channel-container">
         <div className="channel-heading">
-          <div className="channel-title">
-            <span>Channel #{this.props.selectedChannel}</span>
-          </div>
           <div className="channel-nickname">
             <span style={{ color: strToRGB(userNickname) }} >Chatting as: <b>{userNickname}</b></span>
           </div>
