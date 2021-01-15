@@ -38,17 +38,18 @@ document.addEventListener('turbolinks:load', () => {
 
 // Resize event for input
 
-window.addEventListener('resize', addressResize);
+window.addEventListener('resize', () => {
+  const initialHeight = window.outerHeight;
+  document.documentElement.style.setProperty('overflow', 'auto');
+  const metaViewport = document.querySelector('meta[name=viewport]');
+  metaViewport.setAttribute('content', 'height=' + initialHeight + 'px, width=device-width, initial-scale=1.0');
+});
 
-const addressResize = (event) => {
-  document.querySelector('body').style.backgroundColor = 'blue';
-}
+
 // document.documentElement.style.setProperty(‘overflow’, ‘auto’)
 // const metaViewport = document.querySelector(‘meta[name=viewport]’)
 // metaViewport.setAttribute(‘content’, ‘height=’ + initialHeight + ‘px, width=device-width, initial-scale=1.0’)
 
 // const metaViewport = document.querySelector(‘meta[name=viewport]’)
 // metaViewport.setAttribute(‘content’, ‘width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0’)
-
-
 
