@@ -17,6 +17,7 @@ body {
 
 $small: 715px;
 $small-break : 716px;
+
 .messaging-wrapper {
   display: flex;
   flex-direction: column;
@@ -46,19 +47,21 @@ $small-break : 716px;
   margin: 0;
   background-color: $background-orange;
   padding: 0;
+  height: 100%;
 }
 
 .channels-container > ul > li {
   display: inline-block;
   margin: 0;
-  font-size: 90%;
+  font-size: 100%;
   color: $board-black;
   cursor: pointer;
   border: solid $board-black 1px;
   border-top: solid $board-black 2px;
   border-radius: 5px 5px 0px 0px;
   background: $off-white;
-  padding: 0 2%;
+  padding: 1% 2%;
+  height: 100%;
 }
 
 .channels-container > ul > li.active {

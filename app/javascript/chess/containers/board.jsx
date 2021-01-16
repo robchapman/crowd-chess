@@ -19,9 +19,3 @@ class Board extends Component {
 
 export default Board;
 
-
-
-
-
-// var cw = $('.child').width();
-// $('.child').css({'height':cw+'px'});
