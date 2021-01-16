@@ -1,11 +1,33 @@
 import React, { Component } from 'react';
-import GameBar from '../containers/space';
+import Space from '../containers/space';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { selectChannel, fetchMessages } from '../actions/index';
 
 class Board extends Component {
 
+  componentWillMount() {
+    this.fetchBoard();
+    // let boundFetchBoard = this.fetchBoard.bind(this);
+    // consumer.subscriptions.create("GameChannel", {
+    //   received(data) {
+    //     // Called when there's incoming data on the websocket for this channel
+    //     boundFetchBoard();
+    //   }
+    // });
+  }
+
   componentDidMount() {
+    setWidth();
+  }
+
+  setWidth = () => {
     const chess_board = document.querySelector(".board");
-    chess_board.style.width = `${chess_board.offsetHeight}px`
+    chess_board.style.width = `${chess_board.offsetHeight}px`;
+  }
+
+  fetchBoard = () => {
+    this.props.fetchBoard(this.props.currentGame);
   }
 
   render() {
@@ -17,5 +39,15 @@ class Board extends Component {
   }
 }
 
-export default Board;
+function mapStateToProps(state) {
+  return {
+    board: state.board,
+    currentGame: state.currentGame
+  };
+}
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchBoard }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Board);
