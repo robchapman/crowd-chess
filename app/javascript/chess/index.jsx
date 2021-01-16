@@ -25,7 +25,7 @@ const identityReducer = (state = null, action) => state;
 const initialState = {
   time: null,
   activeTeam: null,
-  board: null,
+  board: [],
   currentGame: JSON.parse(chessContainer.dataset.game)
 };
 

@@ -35,9 +35,13 @@ class Board extends Component {
 
   render() {
     return (
-        <div className="board">
-
-        </div>
+      <div className="board">
+        {
+          this.props.board.map((space) => {
+            return <Space key={space.id} space={space} />;
+          })
+        }
+      </div>
     );
   }
 }
