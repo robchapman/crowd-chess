@@ -31,15 +31,15 @@ class PagesController < ApplicationController
       end
       session[:anonNickname] = new_anon_user.nickname
     end
-    # Buil Board
-    board_reset
+    # Build Board
+    # board_build
 
     @nickname = current_user || session[:anonNickname] || "anon"
   end
 
   private
 
-  def board_reset
+  def board_build
     # Produce board array to be rendered(with labels)
     @board_grid = Array.new(10) { Array.new(10) }
     # Adding Labels

@@ -2,7 +2,7 @@ const BASE_URL = '/api/v1/games';
 
 export const FETCH_BOARD = 'FETCH_BOARD';
 
-export function fetchMessages(game) {
+export function fetchBoard(game) {
   const url = `${BASE_URL}/${game}/board/`;
   const promise = fetch(url, { credentials: "same-origin" }).then(r => r.json());
 

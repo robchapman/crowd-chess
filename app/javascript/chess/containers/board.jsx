@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Space from '../containers/space';
+
+import { fetchBoard } from '../actions';
+
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { selectChannel, fetchMessages } from '../actions/index';
@@ -18,7 +21,7 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    setWidth();
+    this.setWidth();
   }
 
   setWidth = () => {
