@@ -19,7 +19,8 @@ require("channels")
 //External Imports
 import "bootstrap";
 import GameSpace from "../components/game_space";
-
+import ResizeChat from "../components/resize_chat";
+import ResizeChess from "../components/resize_chess";
 
 // Marty Magic
 document.addEventListener('turbolinks:load', () => {
@@ -32,21 +33,14 @@ document.addEventListener('turbolinks:load', () => {
     }
   };
   initPlugin(".js-game-space", GameSpace);
+  initPlugin("#chat_app", ResizeChat);
+  initPlugin("#chess_app", ResizeChess);
 });
 
-window.addEventListener('turbolinks:load', () => {
-  const chess = document.querySelector('#chess_app');
-  const chat = document.querySelector('#chat_app');
-  console.log(chat);
-  console.log(chess);
+// const chess = document.querySelector('#chess_app');
+// const chat = document.querySelector('#chat_app');
+// chess.style.minHeight = `${chess.offsetHeight}px`;
+// chat.style.minHeight = `${chat.offsetHeight}px`;
+// chat.style.top = `${chess.offsetHeight}px`;
 
-});
-
-// Resize event for input
-
-// window.addEventListener('resize', () => {
-//   const chat = document.querySelector('.channel-content');
-//   // chat.classList.toggle('hidden-chat');
-//   console.log(chat.offsetHeight);
-// });
 
