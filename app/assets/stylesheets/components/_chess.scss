@@ -65,7 +65,8 @@ $small-break : 716px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 3vh
+  font-size: 180%;
+  position: relative;
 }
 
 .board-white {
@@ -78,9 +79,18 @@ $small-break : 716px;
   border: 1px solid black;
 }
 
-.board-label {
+.board-label-row {
   position: absolute;
-  top: 50%;
+  font-size: 60%;
+  top: 55%;
+  left: 75%;
+}
+
+.board-label-col {
+  position: absolute;
+  font-size: 60%;
+  bottom: 55%;
+  right: 75%;
 }
 
 .board-move-option {

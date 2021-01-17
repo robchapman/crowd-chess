@@ -24,8 +24,9 @@ class Api::V1::BoardController < ApplicationController
 
   def assign_label(space)
     return ['1', 'a'] if space.row == 7 && space.column.zero?
-    return (8 - space.row) if space.column.zero?
-    return (97 + space.column).chr if space.row == 7
+    return [(8 - space.row).to_s, nil] if space.column.zero?
+    return [nil, (97 + space.column).chr] if space.row == 7
+    return [nil, nil]
   end
 
   def sort_spaces(spaces)
