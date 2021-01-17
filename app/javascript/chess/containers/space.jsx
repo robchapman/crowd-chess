@@ -11,6 +11,7 @@ class Space extends Component {
     return (
         <div className={`board-space board-${colour}`}>
           <i className={`fas fa-chess-${pieceType} piece-${pieceTeam}`}></i>
+          <div className='board-label'>{label}</div>
         </div>
     );
   }
@@ -18,7 +19,11 @@ class Space extends Component {
   renderEmpty() {
     const { colour, highlight, pieceType, pieceTeam, selected, label } = this.props.space;
     return (
-        <div className={`board-space board-${colour}`} />
+        <div className={`board-space board-${colour}`}>
+          <div className='board-label'>
+            {label}
+          </div>
+        </div>
     );
   }
 

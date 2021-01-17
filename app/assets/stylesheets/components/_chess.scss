@@ -79,13 +79,8 @@ $small-break : 716px;
 }
 
 .board-label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  h2 {
-    font-size: 2vh;
-    margin: 0;
-  }
+  position: absolute;
+  top: 50%;
 }
 
 .board-move-option {
@@ -95,11 +90,17 @@ $small-break : 716px;
 .piece-white {
   color: $piece-white;
   text-shadow: 0 0 0.2em #525252;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
 }
 
 .piece-black {
   color: $piece-black;
   text-shadow: 0 0 0.2em #525252;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
 }
 
 .piece-selected {
