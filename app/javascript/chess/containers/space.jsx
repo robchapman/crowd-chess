@@ -4,36 +4,27 @@ import { connect } from 'react-redux';
 // import { selectChannel, fetchMessages } from '../actions/index';
 
 class Space extends Component {
-  // const { colour, highlight, pieceType, pieceTeam, selected, label } = this.props.space;
+  handleClick = () => {
 
-  renderPiece() {
-    const { colour, highlight, pieceType, pieceTeam, selected, label } = this.props.space;
-    return (
-        <div className={`board-space board-${colour}`}>
-          <i className={`fas fa-chess-${pieceType} piece-${pieceTeam}`}></i>
-          <span className='board-label-col'>{label[0]}</span>
-          <span className='board-label-row'>{label[1]}</span>
-        </div>
-    );
   }
 
-  renderEmpty() {
-    const { colour, highlight, pieceType, pieceTeam, selected, label } = this.props.space;
-    return (
-        <div className={`board-space board-${colour}`}>
-          <span className='board-label-col'>{label[0]}</span>
-          <span className='board-label-row'>{label[1]}</span>
-        </div>
-    );
+  renderPiece = (pieceType, pieceTeam) => {
+    if (pieceType) {
+      return (<i className={`fas fa-chess-${pieceType} piece-${pieceTeam}`}></i>);
+    } else {
+      return null;
+    }
   }
 
   render() {
-    if (this.props.space.pieceType) {
-      return (this.renderPiece());
-    }
-    else {
-      return (this.renderEmpty());
-    }
+    const { colour, highlight, pieceType, pieceTeam, selected, label } = this.props.space;
+    return (
+      <div className={`board-space board-${colour}`}>
+        {this.renderPiece(pieceType, pieceTeam)}
+        <span className='board-label-col'>{label[0]}</span>
+        <span className='board-label-row'>{label[1]}</span>
+      </div>
+    );
   }
 }
 

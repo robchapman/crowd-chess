@@ -65,7 +65,7 @@ $small-break : 716px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 180%;
+  font-size: 170%;
   position: relative;
 }
 
@@ -81,25 +81,29 @@ $small-break : 716px;
 
 .board-label-row {
   position: absolute;
-  font-size: 60%;
-  top: 55%;
-  left: 75%;
+  font-size: 50%;
+  top: 58%;
+  left: 77%;
 }
 
 .board-label-col {
   position: absolute;
-  font-size: 60%;
-  bottom: 55%;
-  right: 75%;
+  font-size: 50%;
+  bottom: 58%;
+  right: 77%;
 }
 
 .board-move-option {
-  box-shadow: inset 0 0 0.1em 0.05em $move-option, inset 0 0 0.2em 0.1em $move-option-light,inset 0 0 0.3em 0.2em $move-option-lighter;
+  box-shadow: inset 0 0 0.1em 0.05em $move-option, inset 0 0 0.2em 0.1em $move-option-light,inset 0 0 0.3em 0.2em $move-option-lightest;
+}
+
+.board-move-capture {
+  box-shadow: inset 0 0 0.1em 0.05em $move-capture, inset 0 0 0.2em 0.1em $move-capture-light,inset 0 0 0.3em 0.2em $move-capture-lightest;
 }
 
 .piece-white {
   color: $piece-white;
-  text-shadow: 0 0 0.2em #525252;
+  text-shadow: 0 0 0.1em #525252;
   cursor: pointer;
   position: relative;
   z-index: 1;
@@ -107,12 +111,12 @@ $small-break : 716px;
 
 .piece-black {
   color: $piece-black;
-  text-shadow: 0 0 0.2em #525252;
+  text-shadow: 0 0 0.1em #525252;
   cursor: pointer;
   position: relative;
   z-index: 1;
 }
 
 .piece-selected {
-  text-shadow: 0 0 0.2em $orange, 0 0 0.4em $lighter-orange, 0 0 0.6em $lightest-orange;
+  text-shadow: 0 0 0.2em $select, 0 0 0.4em $select-light, 0 0 0.6em $select-lightest;
 }
