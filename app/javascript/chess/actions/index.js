@@ -1,7 +1,11 @@
-const BASE_URL = '/api/v1/games';
+// import { Chess } from 'chess.js';
+// const chess = new Chess();
 
 export const FETCH_BOARD = 'FETCH_BOARD';
-export const BOARD_INTERACT = 'BOARD_INTERACT';
+export const SELECT_PIECE = 'SELECT_PIECE';
+export const MAKE_MOVE = 'MAKE_MOVE';
+
+const BASE_URL = '/api/v1/games';
 
 export function fetchBoard(game) {
   const url = `${BASE_URL}/${game}/board/`;
@@ -13,14 +17,33 @@ export function fetchBoard(game) {
   };
 }
 
-export function boardInteract(clickedSpace, board) {
-  const updatedSpaces = {
-    selected: clickedSpace
+export function selectPiece(clickedSpace, board) {
+  const payload = {
+    selected: clickedSpace,
+    moveOptions: getMoveOptions(clickedSpace, board),
   };
-  console.log('action');
   return {
-    type: BOARD_INTERACT,
-    payload: updatedSpaces
+    type: SELECT_PIECE,
+    payload: payload
   };
 }
 
+export function makeMove(clickedSpace, board) {
+  const move = {
+    selected: clickedSpace,
+  };
+  return {
+    type: MAKE_MOVE,
+    payload: move
+  };
+}
+
+
+
+const getMoveOptions = (clickedSpace, board) => {
+  return [clickedSpace + 1, clickedSpace + 2];
+}
+
+// const getCaptureOptions = (clickedSpace, board) => {
+//   return [clickedSpace + 3, clickedSpace + 4];
+// }

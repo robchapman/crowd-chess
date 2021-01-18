@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { boardInteract } from '../actions';
+import { selectPiece, makeMove } from '../actions';
 
 class Space extends Component {
   handleClick = () => {
-    this.props.boardInteract(this.props.space.id, this.props.board);
+    if (this.props.selectedSpace != null) {
+      this.props.makeMove(this.props.space.id, this.props.board);
+    } else {
+      this.props.selectPiece(this.props.space.id, this.props.board);
+    }
   }
 
   renderPiece = (pieceType, pieceTeam, selected) => {
@@ -14,7 +18,6 @@ class Space extends Component {
       return (
         <i
           className={`fas fa-chess-${pieceType} piece-${pieceTeam} ${selected}`}
-          onClick={this.handleClick}
         ></i>);
     } else {
       return null;
@@ -24,7 +27,7 @@ class Space extends Component {
   render() {
     const { colour, highlight, pieceType, pieceTeam, selected, label } = this.props.space;
     return (
-      <div className={`board-space board-${colour}`}>
+      <div className={`board-space board-${colour}`} onClick={this.handleClick}>
         {this.renderPiece(pieceType, pieceTeam, selected)}
         <span className='board-label-col'>{label[0]}</span>
         <span className='board-label-row'>{label[1]}</span>
@@ -35,12 +38,13 @@ class Space extends Component {
 
 function mapStateToProps(state) {
   return {
-    board: state.board
+    board: state.board,
+    selectedSpace: state.selectedSpace
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ boardInteract }, dispatch);
+  return bindActionCreators({ selectPiece, makeMove }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Space);
