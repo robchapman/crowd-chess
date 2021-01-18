@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import { selectChannel, fetchMessages } from '../actions/index';
+
+import { boardInteract } from '../actions';
 
 class Space extends Component {
   handleClick = () => {
-
+    boardInteract(this.props.space.id, this.props.board);
   }
 
   renderPiece = (pieceType, pieceTeam) => {
     if (pieceType) {
-      return (<i className={`fas fa-chess-${pieceType} piece-${pieceTeam}`}></i>);
+      return (
+        <i
+          className={`fas fa-chess-${pieceType} piece-${pieceTeam}`}
+          onClick={this.handleClick}
+        ></i>);
     } else {
       return null;
     }
@@ -28,17 +33,15 @@ class Space extends Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   return {
-//     channels: state.channels,
-//     selectedChannel: state.selectedChannel,
-//     currentGame: state.currentGame
-//   };
-// }
+function mapStateToProps(state) {
+  return {
+    board: state.board
+  };
+}
 
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({ selectChannel, fetchMessages }, dispatch);
-// }
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ boardInteract }, dispatch);
+}
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Space);
-export default Space;
+export default connect(mapStateToProps, mapDispatchToProps)(Space);
+
