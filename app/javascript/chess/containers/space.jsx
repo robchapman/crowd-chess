@@ -6,14 +6,14 @@ import { boardInteract } from '../actions';
 
 class Space extends Component {
   handleClick = () => {
-    boardInteract(this.props.space.id, this.props.board);
+    this.props.boardInteract(this.props.space.id, this.props.board);
   }
 
-  renderPiece = (pieceType, pieceTeam) => {
+  renderPiece = (pieceType, pieceTeam, selected) => {
     if (pieceType) {
       return (
         <i
-          className={`fas fa-chess-${pieceType} piece-${pieceTeam}`}
+          className={`fas fa-chess-${pieceType} piece-${pieceTeam} ${selected}`}
           onClick={this.handleClick}
         ></i>);
     } else {
@@ -25,7 +25,7 @@ class Space extends Component {
     const { colour, highlight, pieceType, pieceTeam, selected, label } = this.props.space;
     return (
       <div className={`board-space board-${colour}`}>
-        {this.renderPiece(pieceType, pieceTeam)}
+        {this.renderPiece(pieceType, pieceTeam, selected)}
         <span className='board-label-col'>{label[0]}</span>
         <span className='board-label-row'>{label[1]}</span>
       </div>
