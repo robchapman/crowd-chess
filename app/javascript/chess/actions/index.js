@@ -17,9 +17,10 @@ export function fetchBoard(game) {
   };
 }
 
-export function selectPiece(clickedSpace, board) {
+export function selectPiece(clickedSpace, board, selectedSpace) {
   const payload = {
     selected: clickedSpace,
+    prevSelected: selectedSpace,
     moveOptions: getMoveOptions(clickedSpace, board),
   };
   return {
@@ -41,6 +42,7 @@ export function makeMove(clickedSpace, board) {
 
 
 const getMoveOptions = (clickedSpace, board) => {
+  console.log([clickedSpace + 1, clickedSpace + 2]);
   return [clickedSpace + 1, clickedSpace + 2];
 }
 

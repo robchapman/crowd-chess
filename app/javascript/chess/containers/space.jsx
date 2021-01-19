@@ -6,10 +6,10 @@ import { selectPiece, makeMove } from '../actions';
 
 class Space extends Component {
   handleClick = () => {
-    if (this.props.selectedSpace != null) {
+    if (this.props.space.highlight) {
       this.props.makeMove(this.props.space.id, this.props.board);
-    } else {
-      this.props.selectPiece(this.props.space.id, this.props.board);
+    } else if (this.props.space.pieceType){
+      this.props.selectPiece(this.props.space.id, this.props.board, this.props.selectedSpace);
     }
   }
 
@@ -27,7 +27,7 @@ class Space extends Component {
   render() {
     const { colour, highlight, pieceType, pieceTeam, selected, label } = this.props.space;
     return (
-      <div className={`board-space board-${colour}`} onClick={this.handleClick}>
+      <div className={`board-space board-${colour} ${highlight}`} onClick={this.handleClick}>
         {this.renderPiece(pieceType, pieceTeam, selected)}
         <span className='board-label-col'>{label[0]}</span>
         <span className='board-label-row'>{label[1]}</span>

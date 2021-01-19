@@ -8,33 +8,30 @@ export default function(state = null, action) {
     case SELECT_PIECE: {
       let new_state = [];
       Object.assign(new_state, state);
-      handleSelection(new_state, action.payload);
-      handleMoveOptions(new_state, action.payload);
-      handleMoveCaptures(new_state, action.payload);
+      selectSpace(new_state, action.payload['selected']);
+      highlightSpaces(new_state, action.payload['moveOptions'], action.payload['selected'], action.payload['prevSelected']);
       return new_state;
     }
     case MAKE_MOVE:{
       let new_state = [];
       Object.assign(new_state, state);
-      handleSelection(new_state, action.payload);
-      handleMoveOptions(new_state, action.payload);
-      handleMoveCaptures(new_state, action.payload);
 
-      return state;
+      subseqSpaceHighlighting(new_state, action.payload['moveOptions']);
+      return new_state;
     }
     default:
       return state;
   }
 }
 
-const handleSelection = (state, payload) => {
+const selectSpace = (state, selectedSpaceId, prevSelectedId) => {
   state.forEach((space, index) => {
     // If other space is already selected set to off
-    if (space['id'] != payload['selected'] && state[index]['selected']) {
+    if (space['id'] != selectedSpaceId && state[index]['selected']) {
       state[index]['selected'] = null;
     }
     // Switch payload space on
-    if (space['id'] == payload['selected']) {
+    if (space['id'] == selectedSpaceId) {
       if (state[index]['selected']) {
         state[index]['selected'] = null;
       } else {
@@ -45,17 +42,20 @@ const handleSelection = (state, payload) => {
   return state;
 }
 
-const handleMoveOptions = (state, payload) => {
-  const moves = payload['moveOption'];
-  // state.forEach((space, index) => {
-  //   // If other space is already selected set to off
-  //   if (state[index]['selected']) {
-  //     state[index]['moveOption'] = null;
-  //   }
-  //   // Switch payload space on
-  //   if (moves.includes(space['id']) {
-  //     state[index]['moveOption'] = 'board-move-option';
-  //   }
-  // });
+const highlightSpaces = (state, moves, selectedSpaceId, prevSelectedId) => {
+  state.forEach((space, index) => {
+    // If other space is already highlighted set to off
+    if (state[index]['highlight']) {
+      state[index]['highlight'] = null;
+    }
+
+    // Check if clicked space is already selected
+    if (prevSelectedId != selectedSpaceId) {
+      // Switch move Option spaces on
+      if (moves.includes(space['id'])) {
+        state[index]['highlight'] = 'board-move-option';
+      }
+    }
+  });
   return state;
 }
