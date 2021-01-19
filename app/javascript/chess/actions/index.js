@@ -30,7 +30,7 @@ export function selectPiece(clickedSpace, board) {
 
 export function makeMove(clickedSpace, board) {
   const move = {
-    selected: clickedSpace,
+    selected: clickedSpace
   };
   return {
     type: MAKE_MOVE,

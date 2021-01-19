@@ -14,6 +14,11 @@ export default function(state = null, action) {
       return new_state;
     }
     case MAKE_MOVE:{
+      let new_state = [];
+      Object.assign(new_state, state);
+      handleSelection(new_state, action.payload);
+      handleMoveOptions(new_state, action.payload);
+      handleMoveCaptures(new_state, action.payload);
 
       return state;
     }
@@ -54,11 +59,3 @@ const handleMoveOptions = (state, payload) => {
   // });
   return state;
 }
-
-const handleMoveCaptures = (state, payload) => {
-  return state;
-}
-
-//     moveOption: clickedSpace + 1,
-//     captureOption: clickedSpace + 2
-// board-move-capture
