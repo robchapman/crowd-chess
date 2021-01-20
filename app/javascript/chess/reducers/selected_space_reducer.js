@@ -6,7 +6,7 @@ export default function(state = null, action) {
       if (state) {
         return null;
       } else {
-        return action.payload['selected'];
+        return action.payload.selected;
       }
     }
     default: {

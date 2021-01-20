@@ -1,4 +1,5 @@
-// import { Chess } from 'chess.js';
+import Chess from "chess.js";
+
 // const chess = new Chess();
 
 export const FETCH_BOARD = 'FETCH_BOARD';
@@ -17,11 +18,11 @@ export function fetchBoard(game) {
   };
 }
 
-export function selectPiece(clickedSpace, board, selectedSpace) {
+export function selectPiece(clickedSpace, board, selectedSpace, FEN) {
   const payload = {
     selected: clickedSpace,
     prevSelected: selectedSpace,
-    moveOptions: getMoveOptions(clickedSpace, board),
+    moveOptions: getMoveOptions(clickedSpace, board, FEN),
   };
   return {
     type: SELECT_PIECE,
@@ -39,13 +40,13 @@ export function makeMove(clickedSpace, board) {
   };
 }
 
-
-
-const getMoveOptions = (clickedSpace, board) => {
-  console.log([clickedSpace + 1, clickedSpace + 2]);
-  return [clickedSpace + 1, clickedSpace + 2];
+const getMoveOptions = (clickedSpace, board, FEN) => {
+  const chess = new Chess(FEN);
+  const valid = chess.moves({ square: clickedSpace.notation });
+  const validTrimmed = valid?.map((square) => {
+    return square.slice(-2);
+  });
+  return validTrimmed;
+  // return [clickedSpace + 1, clickedSpace + 2];
 }
 
-// const getCaptureOptions = (clickedSpace, board) => {
-//   return [clickedSpace + 3, clickedSpace + 4];
-// }

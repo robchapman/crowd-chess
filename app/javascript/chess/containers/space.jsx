@@ -7,9 +7,9 @@ import { selectPiece, makeMove } from '../actions';
 class Space extends Component {
   handleClick = () => {
     if (this.props.space.highlight) {
-      this.props.makeMove(this.props.space.id, this.props.board);
+      this.props.makeMove(this.props.space, this.props.board);
     } else if (this.props.space.pieceType){
-      this.props.selectPiece(this.props.space.id, this.props.board, this.props.selectedSpace);
+      this.props.selectPiece(this.props.space, this.props.board, this.props.selectedSpace, this.props.FEN);
     }
   }
 
@@ -39,7 +39,8 @@ class Space extends Component {
 function mapStateToProps(state) {
   return {
     board: state.board,
-    selectedSpace: state.selectedSpace
+    selectedSpace: state.selectedSpace,
+    FEN: state.FEN
   };
 }
 

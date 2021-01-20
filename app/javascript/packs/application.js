@@ -8,7 +8,6 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
-
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -37,10 +36,5 @@ document.addEventListener('turbolinks:load', () => {
   initPlugin("#chess_app", ResizeChess);
 });
 
-// const chess = document.querySelector('#chess_app');
-// const chat = document.querySelector('#chat_app');
-// chess.style.minHeight = `${chess.offsetHeight}px`;
-// chat.style.minHeight = `${chat.offsetHeight}px`;
-// chat.style.top = `${chess.offsetHeight}px`;
 
 

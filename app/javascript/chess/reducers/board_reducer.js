@@ -3,20 +3,25 @@ import { FETCH_BOARD, SELECT_PIECE, MAKE_MOVE } from '../actions';
 export default function(state = null, action) {
   switch (action.type) {
     case FETCH_BOARD: {
-      return action.payload;
+      return action.payload.board;
     }
     case SELECT_PIECE: {
       let new_state = [];
       Object.assign(new_state, state);
-      selectSpace(new_state, action.payload['selected']);
-      highlightSpaces(new_state, action.payload['moveOptions'], action.payload['selected'], action.payload['prevSelected']);
+      selectSpace(new_state, action.payload.selected.id);
+      highlightSpaces(
+        new_state,
+        action.payload.moveOptions,
+        action.payload.selected.id,
+        action.payload.prevSelected?.id
+      );
       return new_state;
     }
     case MAKE_MOVE:{
       let new_state = [];
       Object.assign(new_state, state);
 
-      subseqSpaceHighlighting(new_state, action.payload['moveOptions']);
+      subseqSpaceHighlighting(new_state, action.payload.moveOptions);
       return new_state;
     }
     default:
@@ -27,15 +32,15 @@ export default function(state = null, action) {
 const selectSpace = (state, selectedSpaceId, prevSelectedId) => {
   state.forEach((space, index) => {
     // If other space is already selected set to off
-    if (space['id'] != selectedSpaceId && state[index]['selected']) {
-      state[index]['selected'] = null;
+    if (space.id != selectedSpaceId && state[index].selected) {
+      state[index].selected = null;
     }
     // Switch payload space on
-    if (space['id'] == selectedSpaceId) {
-      if (state[index]['selected']) {
-        state[index]['selected'] = null;
+    if (space.id == selectedSpaceId) {
+      if (state[index].selected) {
+        state[index].selected = null;
       } else {
-        state[index]['selected'] = 'piece-selected';
+        state[index].selected = 'piece-selected';
       }
     }
   });
@@ -45,15 +50,14 @@ const selectSpace = (state, selectedSpaceId, prevSelectedId) => {
 const highlightSpaces = (state, moves, selectedSpaceId, prevSelectedId) => {
   state.forEach((space, index) => {
     // If other space is already highlighted set to off
-    if (state[index]['highlight']) {
-      state[index]['highlight'] = null;
+    if (state[index].highlight) {
+      state[index].highlight = null;
     }
-
     // Check if clicked space is already selected
     if (prevSelectedId != selectedSpaceId) {
       // Switch move Option spaces on
-      if (moves.includes(space['id'])) {
-        state[index]['highlight'] = 'board-move-option';
+      if (moves.includes(space.notation)) {
+        state[index].highlight = 'board-move-option';
       }
     }
   });

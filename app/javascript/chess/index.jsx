@@ -17,6 +17,7 @@ import timeReducer from './reducers/time_reducer';
 import activeTeamReducer from './reducers/active_team_reducer';
 import boardReducer from './reducers/board_reducer';
 import selectedSpaceReducer from './reducers/selected_space_reducer';
+import FENReducer from './reducers/FEN_reducer';
 
 const chessContainer = document.getElementById('chess_app');
 
@@ -27,7 +28,8 @@ const initialState = {
   activeTeam: null,
   board: [],
   currentGame: JSON.parse(chessContainer.dataset.game),
-  selectedSpace: null
+  selectedSpace: null,
+  FEN: null
 };
 
 const reducers = combineReducers({
@@ -35,7 +37,8 @@ const reducers = combineReducers({
   activeTeam: activeTeamReducer,
   board: boardReducer,
   currentGame: identityReducer,
-  selectedSpace: selectedSpaceReducer
+  selectedSpace: selectedSpaceReducer,
+  FEN: FENReducer
 });
 
 
