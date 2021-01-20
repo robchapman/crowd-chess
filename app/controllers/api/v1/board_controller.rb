@@ -55,20 +55,36 @@ class Api::V1::BoardController < ApplicationController
   end
 
   def piece_placement(spaces)
+
+    placement_string = ''
+    spaces.each do |space, index|
+
+    end
+
+    "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
   end
 
   def active_colour
+    'w'
   end
 
   def castling
+    'KQkq'
   end
 
   def en_passant
+    '-'
   end
 
   def halfmove
+    # TODO: Should be halfmoves since last capture or pawn advance
+    white_id = @game.board.spaces.first.team.id
+    black_id = @game.board.spaces.second.team.id
+    Move.where({ team_id: [white_id, black_id] }).count
   end
 
   def fullmove
+    black_id = @game.board.spaces.second.team.id
+    Move.where({ team_id: [black_id] }).count + 1
   end
 end
