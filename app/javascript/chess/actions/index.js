@@ -30,10 +30,15 @@ export function selectPiece(clickedSpace, board, selectedSpace, FEN) {
   };
 }
 
-export function makeMove(clickedSpace, board) {
+export function makeMove(clickedSpace, board, selectedSpace, FEN) {
   const move = {
-    selected: clickedSpace
+    selected: clickedSpace,
+    prevSelected: selectedSpace,
   };
+  if (confirmMove(clickedSpace, selectedSpace, FEN)) {
+    const url = `${BASE_URL}/${game}/moves`;
+    moveFetch(url, {start: selectedSpace.id, end: clickedSpace.id});
+  }
   return {
     type: MAKE_MOVE,
     payload: move
@@ -41,14 +46,30 @@ export function makeMove(clickedSpace, board) {
 }
 
 const getMoveOptions = (clickedSpace, board, FEN) => {
-  console.log(FEN);
   const chess = new Chess(FEN);
   const valid = chess.moves({ square: clickedSpace.notation });
-  console.log(valid);
   const validTrimmed = valid?.map((square) => {
     return square.slice(-2);
   });
   return validTrimmed;
-  // return [clickedSpace + 1, clickedSpace + 2];
 }
 
+const confirmMove = (clickedSpace, selectedSpace, FEN) => {
+  const sloppyMove = selectedSpace.notation + clickedSpace.notation;
+  const chess = new Chess(FEN);
+  return chess.move(sloppyMove, {sloppy: true});
+}
+
+const moveFetch = (url, moveBody ) => {
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
+  const promise = fetch(url, {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': csrfToken
+    },
+    body: JSON.stringify(moveBody)
+  }).then(r => r.json());
+}

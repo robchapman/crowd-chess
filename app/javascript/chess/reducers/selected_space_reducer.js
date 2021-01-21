@@ -1,4 +1,4 @@
-import { SELECT_PIECE } from '../actions';
+import { SELECT_PIECE, MAKE_MOVE } from '../actions';
 
 export default function(state = null, action) {
   switch (action.type) {
@@ -8,6 +8,9 @@ export default function(state = null, action) {
       } else {
         return action.payload.selected;
       }
+    }
+    case MAKE_MOVE: {
+      return null;
     }
     default: {
       return state;

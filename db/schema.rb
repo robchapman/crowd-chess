@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_07_230504) do
+ActiveRecord::Schema.define(version: 2021_01_21_211450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,7 +77,9 @@ ActiveRecord::Schema.define(version: 2021_01_07_230504) do
     t.bigint "piece_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "game_id", null: false
     t.index ["end_id"], name: "index_moves_on_end_id"
+    t.index ["game_id"], name: "index_moves_on_game_id"
     t.index ["piece_id"], name: "index_moves_on_piece_id"
     t.index ["start_id"], name: "index_moves_on_start_id"
     t.index ["team_id"], name: "index_moves_on_team_id"
@@ -156,6 +158,7 @@ ActiveRecord::Schema.define(version: 2021_01_07_230504) do
   add_foreign_key "messages", "anon_users"
   add_foreign_key "messages", "channels"
   add_foreign_key "messages", "users"
+  add_foreign_key "moves", "games"
   add_foreign_key "moves", "pieces"
   add_foreign_key "moves", "spaces", column: "end_id"
   add_foreign_key "moves", "spaces", column: "start_id"

@@ -20,8 +20,8 @@ export default function(state = null, action) {
     case MAKE_MOVE:{
       let new_state = [];
       Object.assign(new_state, state);
-
-      subseqSpaceHighlighting(new_state, action.payload.moveOptions);
+      clearSelected(new_state);
+      movePiece(new_state, action.payload.selected.id, action.payload.prevSelected)
       return new_state;
     }
     default:
@@ -29,7 +29,7 @@ export default function(state = null, action) {
   }
 }
 
-const selectSpace = (state, selectedSpaceId, prevSelectedId) => {
+const selectSpace = (state, selectedSpaceId) => {
   state.forEach((space, index) => {
     // If other space is already selected set to off
     if (space.id != selectedSpaceId && state[index].selected) {
@@ -62,4 +62,30 @@ const highlightSpaces = (state, moves, selectedSpaceId, prevSelectedId) => {
     }
   });
   return state;
+}
+
+const clearSelected = (state) => {
+  state.forEach((space, index) => {
+    // If any space is already highlighted set to off
+    if (state[index].highlight) {
+      state[index].highlight = null;
+    }
+    // If other space is already selected set to off
+    if (state[index].selected) {
+      state[index].selected = null;
+    }
+  });
+}
+
+const movePiece = (state, selectedSpaceId, prevSelected) => {
+  state.forEach((space, index) => {
+    if (space.id == selectedSpaceId) {
+      space.pieceTeam = prevSelected.pieceTeam
+      space.pieceType = prevSelected.pieceType
+    }
+    if (space.id == prevSelected.id) {
+      space.pieceTeam = null
+      space.pieceType = null
+    }
+  });
 }

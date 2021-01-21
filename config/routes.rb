@@ -12,6 +12,7 @@ Rails.application.routes.draw do
           resources :messages, only: [:index, :create]
         end
         resources :board, only: [:index]
+        resources :moves, only: [:index, :create]
       end
     end
   end
