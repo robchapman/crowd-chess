@@ -14,6 +14,7 @@ def generate_username
 end
 
 puts 'Cleaning database...'
+Move.destroy_all
 Space.destroy_all
 Piece.destroy_all
 Play.destroy_all
@@ -24,7 +25,6 @@ Channel.destroy_all
 Team.destroy_all
 Board.destroy_all
 Game.destroy_all
-Move.destroy_all
 
 puts 'Clean!'
 
