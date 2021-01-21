@@ -55,17 +55,35 @@ class Api::V1::BoardController < ApplicationController
   end
 
   def piece_placement(spaces)
-
     placement_string = ''
-    spaces.each do |space, index|
-
+    spaces.each_with_index do |space, index|
+      piece_type = space[:pieceType]
+      piece_team = space[:pieceTeam]
+      if piece_type
+        letter = piece_type == 'Knight' ? 'N' : piece_type[0]
+        letter.downcase! if piece_team == 'black'
+      else
+        letter = '0'
+      end
+      placement_string << letter
+      placement_string << '/' if ((index + 1) % 8 == 0) && (index + 1 < spaces.length)
     end
+    8.times do |index|
+      regx = Regexp.new('0' * (index + 1))
+      placement_string.gsub!(regx, (index + 1).to_s)
+    end
+    placement_string
 
-    "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
+    # "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
+    # string = "rnbqkbnr/0pp0ppp0/p00p0000/0000000p/00000000/00000000/PPPPPPPP/RNBQKBNR"
   end
 
   def active_colour
-    'w'
+    # white_id = @game.board.spaces.first.team.id
+    # black_id = @game.board.spaces.second.team.id
+    white_moves = Team.where("colour = 'white'")[0].moves.count
+    black_moves = Team.where("colour = 'black'")[0].moves.count
+    white_moves > black_moves ? 'b' : 'w'
   end
 
   def castling
@@ -78,13 +96,12 @@ class Api::V1::BoardController < ApplicationController
 
   def halfmove
     # TODO: Should be halfmoves since last capture or pawn advance
-    white_id = @game.board.spaces.first.team.id
-    black_id = @game.board.spaces.second.team.id
-    Move.where({ team_id: [white_id, black_id] }).count
+    white_moves = Team.where("colour = 'white'")[0].moves.count
+    black_moves = Team.where("colour = 'black'")[0].moves.count
+    white_moves + black_moves
   end
 
   def fullmove
-    black_id = @game.board.spaces.second.team.id
-    Move.where({ team_id: [black_id] }).count + 1
+    Team.where("colour = 'black'")[0].moves.count + 1
   end
 end
