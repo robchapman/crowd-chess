@@ -60,22 +60,19 @@ class Api::V1::BoardController < ApplicationController
       piece_type = space[:pieceType]
       piece_team = space[:pieceTeam]
       if piece_type
-        letter = piece_type == 'Knight' ? 'N' : piece_type[0]
-        letter.downcase! if piece_team == 'black'
+        letter = (piece_type == 'knight' ? 'n' : piece_type[0])
+        letter = letter.upcase if piece_team == 'white'
       else
         letter = '0'
       end
       placement_string << letter
       placement_string << '/' if ((index + 1) % 8 == 0) && (index + 1 < spaces.length)
     end
-    8.times do |index|
-      regx = Regexp.new('0' * (index + 1))
-      placement_string.gsub!(regx, (index + 1).to_s)
+    (1..8).to_a.reverse.each do |index|
+      regx = Regexp.new('0' * index)
+      placement_string.gsub!(regx, index.to_s)
     end
     placement_string
-
-    # "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
-    # string = "rnbqkbnr/0pp0ppp0/p00p0000/0000000p/00000000/00000000/PPPPPPPP/RNBQKBNR"
   end
 
   def active_colour

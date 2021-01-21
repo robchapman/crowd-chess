@@ -41,8 +41,10 @@ export function makeMove(clickedSpace, board) {
 }
 
 const getMoveOptions = (clickedSpace, board, FEN) => {
+  console.log(FEN);
   const chess = new Chess(FEN);
   const valid = chess.moves({ square: clickedSpace.notation });
+  console.log(valid);
   const validTrimmed = valid?.map((square) => {
     return square.slice(-2);
   });
