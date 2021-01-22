@@ -36,7 +36,7 @@ class Api::V1::MessagesController < ApplicationController
   private
 
   def set_channel
-    @channel = Channel.find_by(name: params[:channel_id])
+    @channel = Channel.where(name: params[:channel_id]).order(created_at: :desc)[0]
   end
 
   def message_params

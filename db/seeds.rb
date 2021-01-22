@@ -31,7 +31,7 @@ puts 'Clean!'
 puts 'Creating Teams...'
 black = Team.create!(colour: 'black')
 white = Team.create!(colour: 'white')
-general = Team.create!(colour: 'none')
+general = Team.create!(colour: 'general')
 teams = [white, black]
 puts 'Created Teams!'
 
