@@ -8,7 +8,9 @@ class Api::V1::MovesController < ApplicationController
   def create
     # TODO if move not successfully created return message that will prevent
     # piece from moving on front end
-    piece = Space.find(move_params[:start]).piece
+    start_space = Space.find(move_params[:start])
+    end_space = Space.find(move_params[:end])
+    piece = start_space.piece
     team = piece.team
     Move.create(
       start_id: move_params[:start],
@@ -17,6 +19,21 @@ class Api::V1::MovesController < ApplicationController
       piece: piece,
       game: @game
     )
+    # Actually change Space - Piece associations
+    start_space.piece = nil
+    start_space.save
+    end_space.piece = piece
+    end_space.save
+
+    spaces = helpers.sort_spaces(@game.board.spaces).map do |space|
+      helpers.convertSpace(space)
+    end
+
+    render json: {
+      FEN: helpers.get_FEN(spaces, @game),
+      selected: helpers.convertSpace(start_space),
+      prevSelected: helpers.convertSpace(end_space)
+    }.to_json
   end
 
   private

@@ -18,9 +18,11 @@ export default function(state = null, action) {
       return new_state;
     }
     case MAKE_MOVE:{
+      console.log(action.payload)
       let new_state = [];
       Object.assign(new_state, state);
       clearSelected(new_state);
+      // Get Prev space(Prev Selected) and new space(selected) out of
       movePiece(new_state, action.payload.selected.id, action.payload.prevSelected)
       return new_state;
     }
