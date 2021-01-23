@@ -19,6 +19,10 @@ class Api::V1::MovesController < ApplicationController
       piece: piece,
       game: @game
     )
+
+    clicked = helpers.convertSpace(end_space)
+    selected = helpers.convertSpace(start_space)
+
     # Actually change Space - Piece associations
     start_space.piece = nil
     start_space.save
@@ -31,8 +35,8 @@ class Api::V1::MovesController < ApplicationController
 
     render json: {
       FEN: helpers.get_FEN(spaces, @game),
-      selected: helpers.convertSpace(start_space),
-      prevSelected: helpers.convertSpace(end_space)
+      clicked: clicked,
+      selected: selected
     }.to_json
   end
 

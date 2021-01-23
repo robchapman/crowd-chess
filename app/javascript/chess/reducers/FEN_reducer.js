@@ -6,8 +6,8 @@ export default function(state = null, action) {
       return action.payload.FEN;
     }
     case MAKE_MOVE: {
-      console.log(action.payload.FEN.FEN)
-      return action.payload.FEN.FEN
+      // console.log(action.payload.FEN.FEN)
+      return action.payload.FEN
     }
     default:
       return state;

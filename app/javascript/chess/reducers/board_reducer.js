@@ -19,11 +19,14 @@ export default function(state = null, action) {
     }
     case MAKE_MOVE:{
       console.log(action.payload)
+      console.log(action.payload.selected)
+      console.log(action.payload.clicked)
+
+
       let new_state = [];
       Object.assign(new_state, state);
       clearSelected(new_state);
-      // Get Prev space(Prev Selected) and new space(selected) out of
-      movePiece(new_state, action.payload.selected.id, action.payload.prevSelected)
+      movePiece(new_state, action.payload.clicked.id, action.payload.selected)
       return new_state;
     }
     default:
@@ -79,13 +82,13 @@ const clearSelected = (state) => {
   });
 }
 
-const movePiece = (state, selectedSpaceId, prevSelected) => {
+const movePiece = (state, clickedSpaceId, selectedSpace) => {
   state.forEach((space, index) => {
-    if (space.id == selectedSpaceId) {
-      space.pieceTeam = prevSelected.pieceTeam
-      space.pieceType = prevSelected.pieceType
+    if (space.id == clickedSpaceId) {
+      space.pieceTeam = selectedSpace.pieceTeam
+      space.pieceType = selectedSpace.pieceType
     }
-    if (space.id == prevSelected.id) {
+    if (space.id == selectedSpace.id) {
       space.pieceTeam = null
       space.pieceType = null
     }
