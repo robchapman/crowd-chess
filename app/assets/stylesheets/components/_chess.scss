@@ -65,7 +65,7 @@ $small-break : 716px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 170%;
+  font-size: 160%;
   position: relative;
 }
 
@@ -81,7 +81,7 @@ $small-break : 716px;
 
 .board-label-row {
   position: absolute;
-  font-size: 50%;
+  font-size: 40%;
   top: 58%;
   left: 77%;
   font-weight: 600;
@@ -89,7 +89,7 @@ $small-break : 716px;
 
 .board-label-col {
   position: absolute;
-  font-size: 50%;
+  font-size: 40%;
   bottom: 58%;
   right: 77%;
   font-weight: 600;

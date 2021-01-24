@@ -8,6 +8,8 @@ class Api::V1::MovesController < ApplicationController
   def create
     # TODO if move not successfully created return message that will prevent
     # piece from moving on front end
+    puts "GAME ID IS :"
+    puts @game.id
     start_space = Space.find(move_params[:start])
     end_space = Space.find(move_params[:end])
     piece = start_space.piece
@@ -32,6 +34,8 @@ class Api::V1::MovesController < ApplicationController
     spaces = helpers.sort_spaces(@game.board.spaces).map do |space|
       helpers.convertSpace(space)
     end
+
+    ActionCable.server.broadcast 'game_channel', "Update Board"
 
     render json: {
       FEN: helpers.get_FEN(spaces, @game),

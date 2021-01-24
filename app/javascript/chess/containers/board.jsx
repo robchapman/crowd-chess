@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Space from '../containers/space';
 
+import consumer from "../../channels/consumer"
 import { fetchBoard } from '../actions';
 
 import { bindActionCreators } from 'redux';
@@ -11,13 +12,13 @@ class Board extends Component {
 
   componentWillMount() {
     this.fetchBoard();
-    // let boundFetchBoard = this.fetchBoard.bind(this);
-    // consumer.subscriptions.create("GameChannel", {
-    //   received(data) {
-    //     // Called when there's incoming data on the websocket for this channel
-    //     boundFetchBoard();
-    //   }
-    // });
+    let boundFetchBoard = this.fetchBoard.bind(this);
+    consumer.subscriptions.create("GameChannel", {
+      received(data) {
+        // Called when there's incoming data on the websocket for this channel
+        boundFetchBoard();
+      }
+    });
   }
 
   componentDidMount() {

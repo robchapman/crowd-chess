@@ -4,5 +4,6 @@ class Game < ApplicationRecord
   has_one :board
   has_many :channels
   has_many :moves
+  has_many :teams
 end
 

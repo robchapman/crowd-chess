@@ -28,16 +28,16 @@ Game.destroy_all
 
 puts 'Clean!'
 
-puts 'Creating Teams...'
-black = Team.create!(colour: 'black')
-white = Team.create!(colour: 'white')
-general = Team.create!(colour: 'general')
-teams = [white, black]
-puts 'Created Teams!'
-
 puts 'Creating Game...'
 game = Game.create!
 puts 'Created Game!'
+
+puts 'Creating Teams...'
+black = Team.create!(colour: 'black', game: game)
+white = Team.create!(colour: 'white', game: game)
+general = Team.create!(colour: 'general', game: game)
+teams = [white, black]
+puts 'Created Teams!'
 
 puts 'Creating Board...'
 board = Board.new(game: game)

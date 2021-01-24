@@ -6,7 +6,7 @@ class PagesController < ApplicationController
 
   def play
     # For testing
-    new_game
+    # new_game
 
     # Get latest game for React Actions requests
     @game = Game.last
@@ -56,16 +56,21 @@ class PagesController < ApplicationController
   end
 
   def new_game
-    teams = {
-      white: Team.where("colour = 'white'")[0],
-      black: Team.where("colour = 'black'")[0]
-    }
     game = Game.create
+    teams = generate_teams(game)
     board = Board.create(game: game)
     spaces = generate_spaces(board, teams)
     pieces = generate_pieces(teams)
     place_pieces(spaces, pieces)
-    generate_channels(game, Team.all)
+    generate_channels(game, game.teams)
+  end
+
+  def generate_teams(game)
+    Team.create!(colour: 'general', game: game)
+    {
+      white: Team.create(colour: 'white', game: game),
+      black: Team.create(colour: 'black', game: game)
+    }
   end
 
   # Returns 2D array with board spaces using supplied teams
