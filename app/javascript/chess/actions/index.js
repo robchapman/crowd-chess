@@ -45,14 +45,9 @@ export function makeMove(clickedSpace, selectedSpace, FEN, game) {
 
 const getMoveOptions = (clickedSpace, FEN) => {
   const chess = new Chess(FEN);
-  const valid = chess.moves({ square: clickedSpace.notation });
-  // console.log(clickedSpace.notation);
-  // console.log(FEN);
+  const valid = chess.moves({square: clickedSpace.notation, verbose: true }).map((move)=>{return move.to});
   // console.log(valid);
-  const validTrimmed = valid?.map((square) => {
-    return square.slice(-2);
-  });
-  return validTrimmed;
+  return valid
 }
 
 const confirmMove = (clickedSpace, selectedSpace, FEN) => {

@@ -3,7 +3,7 @@ import { SELECT_PIECE, MAKE_MOVE } from '../actions';
 export default function(state = null, action) {
   switch (action.type) {
     case SELECT_PIECE: {
-      if (state) {
+      if (state == action.payload.selected) {
         return null;
       } else {
         return action.payload.selected;
