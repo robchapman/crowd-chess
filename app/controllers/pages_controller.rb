@@ -7,7 +7,6 @@ class PagesController < ApplicationController
   def play
     # For testing
     # new_game
-
     # Get latest game for React Actions requests
     @game = Game.last
 
