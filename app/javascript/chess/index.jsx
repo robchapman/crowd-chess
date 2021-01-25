@@ -14,18 +14,19 @@ import App from './components/app';
 
 // Reducers
 import timerReducer from './reducers/timer_reducer';
-import activeTeamReducer from './reducers/active_team_reducer';
+import playerTeamReducer from './reducers/player_team_reducer';
 import boardReducer from './reducers/board_reducer';
 import selectedSpaceReducer from './reducers/selected_space_reducer';
 import FENReducer from './reducers/FEN_reducer';
+import currentGameReducer from './reducers/current_game_reducer'
 
 const chessContainer = document.getElementById('chess_app');
 
 const identityReducer = (state = null, action) => state;
 
 const initialState = {
-  timer: 10,
-  activeTeam: null,
+  timer: 9,
+  playerTeam: chessContainer.dataset.team,
   board: [],
   currentGame: JSON.parse(chessContainer.dataset.game),
   selectedSpace: null,
@@ -34,15 +35,15 @@ const initialState = {
 
 const reducers = combineReducers({
   timer: timerReducer,
-  activeTeam: activeTeamReducer,
+  playerTeam: playerTeamReducer,
   board: boardReducer,
-  currentGame: identityReducer,
+  currentGame: currentGameReducer,
   selectedSpace: selectedSpaceReducer,
   FEN: FENReducer
 });
 
 
-// Apply Middleswares
+// Apply Middlewares
 const middlewares = applyMiddleware(logger, ReduxPromise);
 const store = createStore(reducers, initialState, middlewares);
 

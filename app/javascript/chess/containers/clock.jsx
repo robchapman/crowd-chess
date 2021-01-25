@@ -20,7 +20,7 @@ class Clock extends Component {
   render() {
     return (
       <div className="clock-timer">
-        {this.props.timer} sec
+        00:0{this.props.timer}
       </div>
     );
   }

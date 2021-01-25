@@ -17,7 +17,7 @@ require("channels")
 
 //External Imports
 import "bootstrap";
-import GameSpace from "../components/game_space";
+// import GameSpace from "../components/game_space";
 import ResizeChat from "../components/resize_chat";
 import ResizeChess from "../components/resize_chess";
 
@@ -31,7 +31,7 @@ document.addEventListener('turbolinks:load', () => {
       });
     }
   };
-  initPlugin(".js-game-space", GameSpace);
+  // initPlugin(".js-game-space", GameSpace);
   initPlugin("#chat_app", ResizeChat);
   initPlugin("#chess_app", ResizeChess);
 });

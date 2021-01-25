@@ -34,9 +34,7 @@ class Api::V1::MovesController < ApplicationController
     spaces = helpers.sort_spaces(@game.board.spaces).map do |space|
       helpers.convertSpace(space)
     end
-
     ActionCable.server.broadcast 'game_channel', "Update Board"
-    ActionCable.server.broadcast 'timer_channel', 5
 
     render json: {
       FEN: helpers.get_FEN(spaces, @game),

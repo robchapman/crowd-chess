@@ -8,7 +8,7 @@ class Space extends Component {
   handleClick = () => {
     if (this.props.space.highlight) {
       this.props.makeMove(this.props.space, this.props.selectedSpace, this.props.FEN, this.props.currentGame);
-    } else if (this.props.space.pieceType){
+    } else if ((this.props.space.pieceType) && (this.props.space.pieceTeam === this.props.playerTeam)){
       this.props.selectPiece(this.props.space, this.props.selectedSpace, this.props.FEN);
     }
   }
@@ -40,7 +40,8 @@ function mapStateToProps(state) {
   return {
     selectedSpace: state.selectedSpace,
     FEN: state.FEN,
-    currentGame: state.currentGame
+    currentGame: state.currentGame,
+    playerTeam: state.playerTeam
   };
 }
 

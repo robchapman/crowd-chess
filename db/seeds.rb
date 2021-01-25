@@ -14,6 +14,7 @@ def generate_username
 end
 
 puts 'Cleaning database...'
+GameMaster.destroy_all
 Move.destroy_all
 Space.destroy_all
 Piece.destroy_all
@@ -27,6 +28,10 @@ Board.destroy_all
 Game.destroy_all
 
 puts 'Clean!'
+
+puts 'Creating GameMaster...'
+GameMaster.create!(running: false)
+puts 'Created GameMaster!'
 
 puts 'Creating Game...'
 game = Game.create!
