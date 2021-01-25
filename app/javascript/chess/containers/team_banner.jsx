@@ -1,30 +1,27 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import { selectChannel, fetchMessages } from '../actions/index';
 
 class TeamBanner extends Component {
 
   render() {
     return (
-      <div className="team-banner">
-        BANNER
+      <div className= {`team-banner ${this.props.team}-banner ${this.props.FEN.split(" ")[1] === this.props.team[0] ? 'banner-active' : "" }`}>
+        {this.capitalize(this.props.team)}'s Turn!
       </div>
     );
   }
+
+  capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
 }
 
-// function mapStateToProps(state) {
-//   return {
-//     channels: state.channels,
-//     selectedChannel: state.selectedChannel,
-//     currentGame: state.currentGame
-//   };
-// }
+function mapStateToProps(state) {
+  return {
+    FEN: state.FEN
+  };
+}
 
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({ selectChannel, fetchMessages }, dispatch);
-// }
+export default connect(mapStateToProps, null)(TeamBanner);
 
-// export default connect(mapStateToProps, mapDispatchToProps)(TeamBanner);
-export default TeamBanner;

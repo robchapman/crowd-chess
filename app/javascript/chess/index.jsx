@@ -29,7 +29,7 @@ const initialState = {
   board: [],
   currentGame: JSON.parse(chessContainer.dataset.game),
   selectedSpace: null,
-  FEN: null
+  FEN: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 };
 
 const reducers = combineReducers({

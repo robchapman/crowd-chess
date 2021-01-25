@@ -35,18 +35,41 @@ $small-break : 716px;
 }
 
 .team-banner {
-  margin: 1% 5%
-}
+  font-family: 'Build', sans-serif;
+  box-sizing: border-box;
+  border: solid $board-black 2px;
+  border-radius: 5px;
+  height: 90%;
+  width: 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 100%;
+  background-color: $select;
+  color: $board-white;
 
+  // &.black-banner {
+  //   background-color: $piece-black;
+  //   color: $board-white;
+  // }
+
+  // &.white-banner {
+  //   background-color: $piece-white;
+  //   color: $board-black;
+  // }
+
+  &.banner-active {
+    // text-shadow: 0 0 0.2em $select, 0 0 0.4em $select-light, 0 0 0.6em $select-lightest;
+    background-color: $select-lightest;
+    color: $piece-white;
+  }
+}
 
 .clock-timer {
-  margin: 1% 5%
+  margin: 1% 5%;
+  font-family: 'Build', sans-serif;
 }
 /* Board Section **************************************************************/
-
-.board-wrapper {
-
-}
 
 .board {
   height: 90%;

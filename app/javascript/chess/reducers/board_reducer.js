@@ -61,6 +61,9 @@ const highlightSpaces = (state, moves, selectedSpaceId, prevSelectedId) => {
       // Switch move Option spaces on
       if (moves.includes(space.notation)) {
         state[index].highlight = 'board-move-option';
+        if (state[index].pieceType) {
+          state[index].highlight = 'board-move-capture';
+        }
       }
     }
   });
