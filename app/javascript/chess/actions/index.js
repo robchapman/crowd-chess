@@ -5,8 +5,16 @@ import Chess from "chess.js";
 export const FETCH_BOARD = 'FETCH_BOARD';
 export const SELECT_PIECE = 'SELECT_PIECE';
 export const MAKE_MOVE = 'MAKE_MOVE';
+export const UPDATE_TIMER = 'UPDATE_TIMER';
 
 const BASE_URL = '/api/v1/games';
+
+export function updateTimer(newTimer) {
+  return {
+    type: UPDATE_TIMER,
+    payload: newTimer
+  };
+}
 
 export function fetchBoard(game) {
   const url = `${BASE_URL}/${game}/board/`;

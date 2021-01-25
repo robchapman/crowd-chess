@@ -13,7 +13,7 @@ import ReduxPromise from 'redux-promise';
 import App from './components/app';
 
 // Reducers
-import timeReducer from './reducers/time_reducer';
+import timerReducer from './reducers/timer_reducer';
 import activeTeamReducer from './reducers/active_team_reducer';
 import boardReducer from './reducers/board_reducer';
 import selectedSpaceReducer from './reducers/selected_space_reducer';
@@ -24,7 +24,7 @@ const chessContainer = document.getElementById('chess_app');
 const identityReducer = (state = null, action) => state;
 
 const initialState = {
-  time: null,
+  timer: 10,
   activeTeam: null,
   board: [],
   currentGame: JSON.parse(chessContainer.dataset.game),
@@ -33,7 +33,7 @@ const initialState = {
 };
 
 const reducers = combineReducers({
-  time: timeReducer,
+  timer: timerReducer,
   activeTeam: activeTeamReducer,
   board: boardReducer,
   currentGame: identityReducer,

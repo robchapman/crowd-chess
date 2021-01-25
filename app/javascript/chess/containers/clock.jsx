@@ -1,30 +1,39 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import { selectChannel, fetchMessages } from '../actions/index';
+import { updateTimer } from '../actions/index';
+import consumer from "../../channels/consumer"
+
 
 class Clock extends Component {
+
+  componentWillMount() {
+    let boundUpdateTimer = this.props.updateTimer.bind(this);
+    consumer.subscriptions.create("TimerChannel", {
+      received(data) {
+        // Called when there's incoming data on the websocket for this channel
+        boundUpdateTimer(data);
+      }
+    });
+  }
 
   render() {
     return (
       <div className="clock-timer">
-        CLOCK
+        {this.props.timer} sec
       </div>
     );
   }
 }
 
-// function mapStateToProps(state) {
-//   return {
-//     channels: state.channels,
-//     selectedChannel: state.selectedChannel,
-//     currentGame: state.currentGame
-//   };
-// }
+function mapStateToProps(state) {
+  return {
+    timer: state.timer
+  };
+}
 
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({ selectChannel, fetchMessages }, dispatch);
-// }
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ updateTimer }, dispatch);
+}
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Clock);
-export default Clock;
+export default connect(mapStateToProps, mapDispatchToProps)(Clock);
