@@ -10,25 +10,26 @@ class PagesController < ApplicationController
     # Get latest game for React Actions requests
     @game = Game.last
 
-    # If no User logged create or username in session
-    # generate Anon Username and store in session
-    # If no AnonUSer record exists for session name
-    if current_user.nil? && AnonUser.where(nickname: session[:anonNickname]).empty?
-      count = 0
-      new_anon_user = AnonUser.new(nickname: generate_username)
-      until new_anon_user.save
-        if count > 10
-          new_anon_user = AnonUser.new(nickname: generate_username)
-        else
-          count += 1
-          new_anon_user = AnonUser.new(nickname: generate_username_numbered)
-        end
-      end
-      session[:anonNickname] = new_anon_user.nickname
+    # @player_team = rand(2) == 1 ? 'white' : 'black'
+
+    if current_user # If User logged in
+      player = current_user
+    elsif AnonUser.where(nickname: session[:anonNickname]) # Users Anon nickname exists in DB
+      player = AnonUser.where(nickname: session[:anonNickname])[0]
+    elsif session[:anonNickname] # Nickname in session but no record
+      player = AnonUser.create(nickname: session[:anonNickname])
+    else # Generate new
+      player = new_anon_user
     end
-    @nickname = current_user || session[:anonNickname] || 'anon'
+    @nickname = player.nickname
+
     # Assign User to a team
-    @player_team = rand() > 0.5 ? "white" : "black"
+    player_team = new_player_team
+
+    @player_team = player_team.colour
+
+    # Create instance of play model
+    Play.create(team: player_team, player: player, active: true, game: @game)
 
     # Get intial Channel names state(should not change)
     # @channel_names = @game.channels.map { |channel| channel.name }
@@ -41,6 +42,36 @@ class PagesController < ApplicationController
   end
 
   private
+
+  def new_player_team
+    white = @game.teams.where(colour: 'white')[0]
+    black = @game.teams.where(colour: 'black')[0]
+    white_players = Play.where(active: true).where(team: white).count
+    black_players = Play.where(active: true).where(team: black).count
+    if white_players > black_players
+      new_team = black
+    elsif black_players > white_players
+      new_team = white
+    else
+      new_team = rand(2).zero? ? white : black
+    end
+    new_team
+  end
+
+  def new_anon_user
+    count = 0
+    new_anon_user = AnonUser.new(nickname: generate_username)
+    until new_anon_user.save
+      if count > 10
+        new_anon_user = AnonUser.new(nickname: generate_username)
+      else
+        count += 1
+        new_anon_user = AnonUser.new(nickname: generate_username_numbered)
+      end
+    end
+    session[:anonNickname] = new_anon_user.nickname
+    new_anon_user
+  end
 
   def generate_username
     verb = Faker::Verb.past_participle

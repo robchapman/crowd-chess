@@ -11,7 +11,19 @@ class App extends Component {
 
   handleVisibilityChange = (isVisible, visibilityState) => {
     console.log(isVisible);
-    console.log(this.props.userNickname)
+    const BASE_URL = '/api/v1/games';
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
+    const url = `${BASE_URL}/${this.props.currentGame}/plays/${this.props.userNickname}/`;
+    const promise = fetch(url, {
+      method: 'PATCH',
+      credentials: 'same-origin',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken
+      },
+      body: JSON.stringify({play: {active: isVisible}})
+    })
   }
 
   render () {
@@ -28,7 +40,8 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    userNickname: state.userNickname
+    userNickname: state.userNickname,
+    currentGame: state.currentGame
   };
 }
 
