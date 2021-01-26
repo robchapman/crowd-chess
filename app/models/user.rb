@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  belongs_to :team
-  has_many :plays
+  has_many :plays, as: :player
+  has_many :messages, as: :author
   has_many :games, through: :plays
 end

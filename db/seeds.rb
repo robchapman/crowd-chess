@@ -143,15 +143,15 @@ puts 'Placed Pieces!'
 # Create Users and plays
 puts('Creating Users...')
 users = [
-  { email: 'rob@email.com', password: 'password', nickname: "#{generate_username}", team: white },
-  { email: 'amelia@email.com', password: 'password', nickname: "#{generate_username}", team: white },
-  { email: 'lauren@email.com', password: 'password', nickname: "#{generate_username}", team: black },
-  { email: 'julie@email.com', password: 'password', nickname: "#{generate_username}", team: black },
-  { email: 'philip@email.com', password: 'password', nickname: "#{generate_username}", team: black }
+  { email: 'rob@email.com', password: 'password', nickname: "#{generate_username}" },
+  { email: 'amelia@email.com', password: 'password', nickname: "#{generate_username}" },
+  { email: 'lauren@email.com', password: 'password', nickname: "#{generate_username}" },
+  { email: 'julie@email.com', password: 'password', nickname: "#{generate_username}" },
+  { email: 'philip@email.com', password: 'password', nickname: "#{generate_username}" }
 ]
 users.map! do |user|
   last_user = User.create!(user)
-  Play.create!(user: last_user, game: game)
+  play = Play.create!(player: last_user, game: game, team: teams[rand(2)], active: false)
   last_user
 end
 puts('Users created and playing game.')
@@ -159,18 +159,18 @@ puts('Users created and playing game.')
 # Create Messages
 puts('Creating Messages...')
 messages = [
-  { user: users[0], channel: channels[0], content: 'Hi guys!' },
-  { user: users[1], channel: channels[0], content: 'hey :)' },
-  { user: users[2], channel: channels[0], content: 'wassup' },
-  { user: users[0], channel: channels[0], content: 'Hope this thing works' },
-  { user: users[1], channel: channels[0], content: 'me too' },
-  { user: users[0], channel: channels[1], content: 'Hi guys!' },
-  { user: users[1], channel: channels[1], content: 'Yeh not bad' },
-  { user: users[2], channel: channels[1], content: 'prefered the other one' },
-  { user: users[0], channel: channels[1], content: 'wow' },
-  { user: users[1], channel: channels[1], content: 'wowee' },
-  { user: users[0], channel: channels[2], content: 'hey' },
-  { user: users[1], channel: channels[2], content: 'hi hi hi hi' }
+  { author: users[0], channel: channels[0], content: 'Hi guys!' },
+  { author: users[1], channel: channels[0], content: 'hey :)' },
+  { author: users[2], channel: channels[0], content: 'wassup' },
+  { author: users[0], channel: channels[0], content: 'Hope this thing works' },
+  { author: users[1], channel: channels[0], content: 'me too' },
+  { author: users[0], channel: channels[1], content: 'Hi guys!' },
+  { author: users[1], channel: channels[1], content: 'Yeh not bad' },
+  { author: users[2], channel: channels[1], content: 'prefered the other one' },
+  { author: users[0], channel: channels[1], content: 'wow' },
+  { author: users[1], channel: channels[1], content: 'wowee' },
+  { author: users[0], channel: channels[2], content: 'hey' },
+  { author: users[1], channel: channels[2], content: 'hi hi hi hi' }
 ]
 
 messages.each do |message|

@@ -1,8 +1,8 @@
 class Play < ApplicationRecord
   belongs_to :game
-  belongs_to :user
+  belongs_to :player, polymorphic: true
   belongs_to :team
 
   # Validations
-  validates :game, uniqueness: { scope: :user }
+  validates :game, uniqueness: { scope: :player }
 end

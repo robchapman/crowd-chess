@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_26_113915) do
+ActiveRecord::Schema.define(version: 2021_01_26_131845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 2021_01_26_113915) do
     t.bigint "team_id", null: false
     t.string "player_type", null: false
     t.bigint "player_id", null: false
+    t.boolean "active", null: false
     t.index ["game_id"], name: "index_plays_on_game_id"
     t.index ["player_type", "player_id"], name: "index_plays_on_player_type_and_player_id"
     t.index ["team_id"], name: "index_plays_on_team_id"
@@ -156,10 +157,8 @@ ActiveRecord::Schema.define(version: 2021_01_26_113915) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "chat_colour"
     t.string "nickname"
-    t.bigint "team_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["team_id"], name: "index_users_on_team_id"
   end
 
   add_foreign_key "boards", "games"
@@ -178,5 +177,4 @@ ActiveRecord::Schema.define(version: 2021_01_26_113915) do
   add_foreign_key "spaces", "pieces"
   add_foreign_key "spaces", "teams"
   add_foreign_key "teams", "games"
-  add_foreign_key "users", "teams"
 end
