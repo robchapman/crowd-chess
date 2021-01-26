@@ -38,12 +38,12 @@ class MessageList extends Component {
   }
 
   render () {
-    const userNickname = document.getElementById('chat_app').dataset.nickname;
+    // const userNickname = document.getElementById('chat_app').dataset.nickname;
     return (
       <div className="channel-container">
         <div className="channel-heading">
           <div className="channel-nickname">
-            <span style={{ color: strToRGB(userNickname) }} >Chatting as: <b>{userNickname}</b></span>
+            <span style={{ color: strToRGB(this.props.userNickname) }} >Chatting as: <b>{this.props.userNickname}</b></span>
           </div>
         </div>
         <div className="channel-content" ref={(list) => { this.list = list; }}>
@@ -63,7 +63,8 @@ function mapStateToProps(state) {
   return {
     messages: state.messages,
     selectedChannel: state.selectedChannel,
-    currentGame: state.currentGame
+    currentGame: state.currentGame,
+    userNickname: state.userNickname
   };
 }
 

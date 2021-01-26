@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         end
         resources :board, only: [:index]
         resources :moves, only: [:index, :create]
+        resources :plays, only: [:update]
       end
     end
   end

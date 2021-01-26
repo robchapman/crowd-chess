@@ -25,14 +25,16 @@ const initialState = {
   messages: [],
   channels: JSON.parse(chatContainer.dataset.channelnames),
   selectedChannel: 'general',
-  currentGame: JSON.parse(chatContainer.dataset.game)
+  currentGame: JSON.parse(chatContainer.dataset.game),
+  userNickname: chatContainer.dataset.nickname
 };
 
 const reducers = combineReducers({
   messages: messagesReducer,
   channels: identityReducer,
   selectedChannel: selectedChannelReducer,
-  currentGame: identityReducer
+  currentGame: identityReducer,
+  userNickname: identityReducer
 });
 
 
@@ -48,15 +50,3 @@ ReactDOM.render(
   chatContainer
 );
 
-
-// With
-// ReactDOM.render(
-//   <Provider store={store}>
-//     <BrowserRouter>
-//       <Switch>
-//         <Route path="/channels/:channel" component={App} />
-//       </Switch>
-//     </BrowserRouter>
-//   </Provider>,
-//   chatContainer
-// );

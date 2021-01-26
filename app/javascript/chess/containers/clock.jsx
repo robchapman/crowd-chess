@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { updateTimer } from '../actions/index';
 import consumer from "../../channels/consumer"
 
-
 class Clock extends Component {
 
   componentWillMount() {
