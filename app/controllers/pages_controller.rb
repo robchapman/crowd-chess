@@ -5,10 +5,9 @@ class PagesController < ApplicationController
   end
 
   def play
-    # For testing
-    # new_game
+    # Ensure Game background job is running
+    GameJob.perform_now
     # Get latest game for React Actions requests
-    # GameJob.perform_now
     @game = Game.last
     # If no User logged create or username in session
     # generate Anon Username and store in session
@@ -38,7 +37,6 @@ class PagesController < ApplicationController
     else
       @selected_channel = @channel_names[0]
     end
-
   end
 
   private

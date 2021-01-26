@@ -8,8 +8,6 @@ class Api::V1::MovesController < ApplicationController
   def create
     # TODO if move not successfully created return message that will prevent
     # piece from moving on front end
-    puts "GAME ID IS :"
-    puts @game.id
     start_space = Space.find(move_params[:start])
     end_space = Space.find(move_params[:end])
     piece = start_space.piece
@@ -53,4 +51,3 @@ class Api::V1::MovesController < ApplicationController
     params.permit(:start, :end)
   end
 end
-
