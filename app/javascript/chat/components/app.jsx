@@ -9,8 +9,18 @@ import PageVisibility from 'react-page-visibility';
 
 class App extends Component {
 
+  ComponentDidMount() {
+    window.addEventListener('beforeunload', (event) => {
+      this.sendActiveFetch(false)
+    });
+  }
+
   handleVisibilityChange = (isVisible, visibilityState) => {
     console.log(isVisible);
+    this.sendActiveFetch(isVisible)
+  }
+
+  sendActiveFetch = (isVisible) => {
     const BASE_URL = '/api/v1/games';
     const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
     const url = `${BASE_URL}/${this.props.currentGame}/plays/${this.props.userNickname}/`;

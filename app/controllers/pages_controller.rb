@@ -28,8 +28,14 @@ class PagesController < ApplicationController
 
     @player_team = player_team.colour
 
-    # Create instance of play model
-    Play.create(team: player_team, player: player, active: true, game: @game)
+    # Create instance of play model if one does not exist for current game
+    if Play.where(game: @game).where(player: player)
+      play_in_progress = Play.where(game: @game).where(player: player)[0]
+      play_in_progress.active = true
+      play_in_progress.save
+    else
+      Play.create(team: player_team, player: player, active: true, game: @game)
+    end
 
     # Get intial Channel names state(should not change)
     # @channel_names = @game.channels.map { |channel| channel.name }
