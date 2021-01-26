@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_25_200548) do
+ActiveRecord::Schema.define(version: 2021_01_26_113915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,15 +65,14 @@ ActiveRecord::Schema.define(version: 2021_01_25_200548) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.bigint "user_id"
     t.bigint "channel_id", null: false
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "anon_user_id"
-    t.index ["anon_user_id"], name: "index_messages_on_anon_user_id"
+    t.string "author_type", null: false
+    t.bigint "author_id", null: false
+    t.index ["author_type", "author_id"], name: "index_messages_on_author_type_and_author_id"
     t.index ["channel_id"], name: "index_messages_on_channel_id"
-    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "moves", force: :cascade do |t|
@@ -106,11 +105,14 @@ ActiveRecord::Schema.define(version: 2021_01_25_200548) do
 
   create_table "plays", force: :cascade do |t|
     t.bigint "game_id", null: false
-    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "team_id", null: false
+    t.string "player_type", null: false
+    t.bigint "player_id", null: false
     t.index ["game_id"], name: "index_plays_on_game_id"
-    t.index ["user_id"], name: "index_plays_on_user_id"
+    t.index ["player_type", "player_id"], name: "index_plays_on_player_type_and_player_id"
+    t.index ["team_id"], name: "index_plays_on_team_id"
   end
 
   create_table "queens", force: :cascade do |t|
@@ -163,9 +165,7 @@ ActiveRecord::Schema.define(version: 2021_01_25_200548) do
   add_foreign_key "boards", "games"
   add_foreign_key "channels", "games"
   add_foreign_key "channels", "teams"
-  add_foreign_key "messages", "anon_users"
   add_foreign_key "messages", "channels"
-  add_foreign_key "messages", "users"
   add_foreign_key "moves", "games"
   add_foreign_key "moves", "pieces"
   add_foreign_key "moves", "spaces", column: "end_id"
@@ -173,7 +173,7 @@ ActiveRecord::Schema.define(version: 2021_01_25_200548) do
   add_foreign_key "moves", "teams"
   add_foreign_key "pieces", "teams"
   add_foreign_key "plays", "games"
-  add_foreign_key "plays", "users"
+  add_foreign_key "plays", "teams"
   add_foreign_key "spaces", "boards"
   add_foreign_key "spaces", "pieces"
   add_foreign_key "spaces", "teams"
