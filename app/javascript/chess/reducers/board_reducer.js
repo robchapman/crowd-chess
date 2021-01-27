@@ -18,9 +18,6 @@ export default function(state = null, action) {
       return new_state;
     }
     case MAKE_MOVE:{
-      // console.log(action.payload)
-      // console.log(action.payload.selected)
-      // console.log(action.payload.clicked)
       let new_state = [];
       Object.assign(new_state, state);
       clearSelected(new_state);

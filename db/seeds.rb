@@ -31,7 +31,7 @@ Game.destroy_all
 puts 'Clean!'
 
 puts 'Creating GameMaster...'
-GameMaster.create!(running: false)
+GameMaster.create!(running: false, gameover: false)
 puts 'Created GameMaster!'
 
 puts 'Creating Game...'
@@ -166,8 +166,6 @@ messages = [
   { author: users[0], channel: channels[0], content: 'Hope this thing works' },
   { author: users[1], channel: channels[0], content: 'me too' },
   { author: users[0], channel: channels[1], content: 'Hi guys!' },
-  { author: users[1], channel: channels[1], content: 'Yeh not bad' },
-  { author: users[2], channel: channels[1], content: 'prefered the other one' },
   { author: users[0], channel: channels[1], content: 'wow' },
   { author: users[1], channel: channels[1], content: 'wowee' },
   { author: users[0], channel: channels[2], content: 'hey' },

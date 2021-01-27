@@ -32,6 +32,7 @@ class Api::V1::MovesController < ApplicationController
     spaces = helpers.sort_spaces(@game.board.spaces).map do |space|
       helpers.convertSpace(space)
     end
+    # btw update board
     ActionCable.server.broadcast 'game_channel', "Update Board"
 
     render json: {
@@ -39,6 +40,7 @@ class Api::V1::MovesController < ApplicationController
       clicked: clicked,
       selected: selected
     }.to_json
+
   end
 
   private

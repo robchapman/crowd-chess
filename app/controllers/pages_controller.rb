@@ -5,12 +5,8 @@ class PagesController < ApplicationController
   end
 
   def play
-    # Ensure Game background job is running
-    # GameJob.perform_now
     # Get latest game for React Actions requests
     @game = Game.last
-
-    # @player_team = rand(2) == 1 ? 'white' : 'black'
 
     if current_user # If User logged in
       player = current_user
@@ -43,6 +39,12 @@ class PagesController < ApplicationController
     else
       @selected_channel = @channel_names[0]
     end
+
+    # testing
+    GameMaster.update(id: GameMaster.last.id, running: false)
+
+    # Ensure Game background job is running
+    BasicGameJob.perform_later unless GameMaster.last.running
   end
 
   private
@@ -91,14 +93,5 @@ class PagesController < ApplicationController
     animal = Faker::Creature::Animal.name
     number = Faker::Number.number(digits: 2)
     "#{verb}-#{animal}-#{number}"
-  end
-
-  def flag
-    puts "////////////////////////////////////////////////////////////////////"
-    puts "////////////////////////////////////////////////////////////////////"
-    puts "////////////////////////////////////////////////////////////////////"
-    puts "////////////////////////////////////////////////////////////////////"
-    puts "////////////////////////////////////////////////////////////////////"
-    puts "////////////////////////////////////////////////////////////////////"
   end
 end

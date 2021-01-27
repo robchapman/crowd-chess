@@ -11,7 +11,12 @@ class Clock extends Component {
     consumer.subscriptions.create("TimerChannel", {
       received(data) {
         // Called when there's incoming data on the websocket for this channel
-        boundUpdateTimer(data);
+        console.log(data);
+        boundUpdateTimer(data)
+        while (data > 0) {
+          setTimeout(boundUpdateTimer(data), 1000);
+          data--;
+        }
       }
     });
   }

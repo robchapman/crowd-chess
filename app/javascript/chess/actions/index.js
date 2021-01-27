@@ -39,10 +39,18 @@ export function selectPiece(clickedSpace, selectedSpace, FEN) {
 }
 
 export function makeMove(clickedSpace, selectedSpace, FEN, game) {
+  // Check if move would produce a game over condition
+  // If so send a fetch request to alter GameMaster Model
+  const compMoves = null;
+  if (!causeGameOver(clickedSpace, selectedSpace, FEN)) {
+    const compMoves = getNextMoveOptions(clickedSpace, selectedSpace, FEN);
+  } else {
+    gameOverFetch();
+  }
   let promise = null;
   if (confirmMove(clickedSpace, selectedSpace, FEN)) {
     const url = `${BASE_URL}/${game}/moves`;
-    const moveBody = {start: selectedSpace.id, end: clickedSpace.id};
+    const moveBody = {start: selectedSpace.id, end: clickedSpace.id, compMoves: compMoves};
     promise = moveFetch(url, moveBody);
   }
   return {
@@ -51,26 +59,27 @@ export function makeMove(clickedSpace, selectedSpace, FEN, game) {
   };
 }
 
+const getNextMoveOptions = (clickedSpace, selectedSpace, FEN) => {
+  const sloppyMove = selectedSpace.notation + clickedSpace.notation;
+  const chess = new Chess(FEN);
+  chess.move(sloppyMove, {sloppy: true});
+  const valid = chess.moves({verbose: true }).map((move)=>{return move.to});
+  return valid
+}
+
 const getMoveOptions = (clickedSpace, FEN) => {
   const chess = new Chess(FEN);
   const valid = chess.moves({square: clickedSpace.notation, verbose: true }).map((move)=>{return move.to});
-  // console.log(valid);
   return valid
 }
 
 const confirmMove = (clickedSpace, selectedSpace, FEN) => {
-  // console.log("Clicked Space:")
-  // console.log(clickedSpace);
-  // console.log("Selected Space:")
-  // console.log(selectedSpace);
   const sloppyMove = selectedSpace.notation + clickedSpace.notation;
   const chess = new Chess(FEN);
   return chess.move(sloppyMove, {sloppy: true});
 }
 
 const moveFetch = (url, moveBody ) => {
-  // console.log(url);
-  // console.log(moveBody);
   const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
   const promise = fetch(url, {
     method: 'POST',
@@ -82,6 +91,16 @@ const moveFetch = (url, moveBody ) => {
     },
     body: JSON.stringify(moveBody)
   }).then(r => r.json());
-  // console.log(promise);
   return promise;
+}
+
+const causeGameOver = (clickedSpace, selectedSpace, FEN) => {
+  const sloppyMove = selectedSpace.notation + clickedSpace.notation;
+  const chess = new Chess(FEN);
+  chess.move(sloppyMove, {sloppy: true});
+  return chess.game_over();
+}
+
+const gameOverFetch = (url) => {
+
 }
