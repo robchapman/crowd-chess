@@ -20,6 +20,7 @@ Space.destroy_all
 Piece.destroy_all
 Play.destroy_all
 Message.destroy_all
+Play.destroy_all
 User.destroy_all
 AnonUser.destroy_all
 Channel.destroy_all

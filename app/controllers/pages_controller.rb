@@ -14,7 +14,7 @@ class PagesController < ApplicationController
 
     if current_user # If User logged in
       player = current_user
-    elsif AnonUser.where(nickname: session[:anonNickname]) # Users Anon nickname exists in DB
+    elsif !AnonUser.where(nickname: session[:anonNickname]).empty? # Users Anon nickname exists in DB
       player = AnonUser.where(nickname: session[:anonNickname])[0]
     elsif session[:anonNickname] # Nickname in session but no record
       player = AnonUser.create(nickname: session[:anonNickname])
@@ -23,20 +23,18 @@ class PagesController < ApplicationController
     end
     @nickname = player.nickname
 
-    # Assign User to a team
-    player_team = new_player_team
-
-    @player_team = player_team.colour
-
-    # Create instance of play model if one does not exist for current game
-    if Play.where(game: @game).where(player: player)
+    # Create instance of play model if one does not exist for current game, assign team if needed
+    if !Play.where(game: @game).where(player: player).empty?
       play_in_progress = Play.where(game: @game).where(player: player)[0]
       play_in_progress.active = true
       play_in_progress.save
+      player_team = play_in_progress.team
     else
+      player_team = new_player_team
       Play.create(team: player_team, player: player, active: true, game: @game)
     end
 
+    @player_team = player_team.colour
     # Get intial Channel names state(should not change)
     # @channel_names = @game.channels.map { |channel| channel.name }
     @channel_names = ['general', @player_team]
@@ -54,6 +52,9 @@ class PagesController < ApplicationController
     black = @game.teams.where(colour: 'black')[0]
     white_players = Play.where(active: true).where(team: white).count
     black_players = Play.where(active: true).where(team: black).count
+    flag
+    puts "white players: #{white_players} ,  black players: #{black_players}"
+    flag
     if white_players > black_players
       new_team = black
     elsif black_players > white_players
@@ -90,5 +91,14 @@ class PagesController < ApplicationController
     animal = Faker::Creature::Animal.name
     number = Faker::Number.number(digits: 2)
     "#{verb}-#{animal}-#{number}"
+  end
+
+  def flag
+    puts "////////////////////////////////////////////////////////////////////"
+    puts "////////////////////////////////////////////////////////////////////"
+    puts "////////////////////////////////////////////////////////////////////"
+    puts "////////////////////////////////////////////////////////////////////"
+    puts "////////////////////////////////////////////////////////////////////"
+    puts "////////////////////////////////////////////////////////////////////"
   end
 end
