@@ -9,15 +9,7 @@ class Api::V1::MovesController < ApplicationController
     # TODO if move not successfully created return message that will prevent
     # piece from moving on front end
     moves = []
-    flag
-    puts move_params
-    flag
-
     moves << build_move(move_params[:start], move_params[:end])
-
-
-    # computer move needs to and can be made
-
 
     white = @game.teams.where(colour: 'white')[0]
     black = @game.teams.where(colour: 'black')[0]
@@ -27,15 +19,9 @@ class Api::V1::MovesController < ApplicationController
     puts "black players: #{black_players}"
     puts "white players: #{white_players}"
     puts "doing comp move" if move_params[:comp_moves]
-    puts move_params[:comp_moves].class
     flag
-    # if move_params[:compMoves] && (white_players.zero? || black_players.zero?)
 
-
-    if move_params[:comp_moves]
-      flag
-      puts "doing comp move"
-      flag
+    if move_params[:comp_moves] && (white_players.zero? || black_players.zero?)
       notation = move_params[:comp_moves].sample
       start_notation = notation[:start]
       end_notation = notation[:end]

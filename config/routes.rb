@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         resources :board, only: [:index]
         resources :moves, only: [:index, :create]
         resources :plays, only: [:update]
+        post 'plays/:id/beacon', to: 'plays#beacon'
       end
     end
   end

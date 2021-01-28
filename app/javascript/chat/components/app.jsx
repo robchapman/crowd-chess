@@ -10,14 +10,37 @@ import PageVisibility from 'react-page-visibility';
 class App extends Component {
 
   ComponentDidMount() {
+    // document.addEventListener('visibilitychange', () => {
+    //   if (document.visibilityState == 'hidden') {
+    //     this.sendActiveBeacon(false)
+    //     // this.sendActiveFetch(false)
+    //   } else if (document.visibilityState == "visible") {
+    //     this.sendActiveBeacon(true)
+    //   }
+    // });
     window.addEventListener('beforeunload', (event) => {
-      this.sendActiveFetch(false)
+      this.sendActiveBeacon(false);
     });
   }
 
   handleVisibilityChange = (isVisible, visibilityState) => {
     console.log(isVisible);
-    this.sendActiveFetch(isVisible)
+    // this.sendActiveFetch(isVisible);
+    this.sendActiveBeacon(isVisible);
+  }
+
+  sendActiveBeacon = (isVisible) => {
+    const BASE_URL = '/api/v1/games';
+    // const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
+    const url = `${BASE_URL}/${this.props.currentGame}/plays/${this.props.userNickname}/beacon`;
+
+    var data = new FormData();
+    data.append("play[active]", isVisible);
+    var param = document.querySelector("meta[name=csrf-param]").getAttribute("content");
+    var token = document.querySelector("meta[name=csrf-token]").getAttribute("content");
+    data.append(param, token);
+
+    navigator.sendBeacon(url, data);
   }
 
   sendActiveFetch = (isVisible) => {

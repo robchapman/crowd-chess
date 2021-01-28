@@ -3,6 +3,32 @@ class Api::V1::PlaysController < ApplicationController
 
   def update
     Play.update(@play.id, active: play_params[:active])
+
+    white = Game.last.teams.where(colour: 'white')[0]
+    black = Game.last.teams.where(colour: 'black')[0]
+    white_players = Play.where(active: true).where(team: white).count
+    black_players = Play.where(active: true).where(team: black).count
+
+    flag
+    puts "Play: #{@play.id} // #{@play.player.nickname} // #{@play.team.colour} // switched to: #{@play.active}"
+    puts "black players: #{black_players}"
+    puts "white players: #{white_players}"
+    flag
+  end
+
+  def beacon
+    Play.update(@play.id, active: play_params[:active])
+
+    white = Game.last.teams.where(colour: 'white')[0]
+    black = Game.last.teams.where(colour: 'black')[0]
+    white_players = Play.where(active: true).where(team: white).count
+    black_players = Play.where(active: true).where(team: black).count
+
+    flag
+    puts "Play: #{@play.id} // #{@play.player.nickname} // #{@play.team.colour} // switched to: #{@play.active}"
+    puts "black players: #{black_players}"
+    puts "white players: #{white_players}"
+    flag
   end
 
   private
@@ -14,5 +40,12 @@ class Api::V1::PlaysController < ApplicationController
 
   def play_params
     params.require(:play).permit(:active)
+  end
+
+  def flag
+    puts '/////////////////////////////////////////////////////////////////////'
+    puts '/////////////////////////////////////////////////////////////////////'
+    puts '/////////////////////////////////////////////////////////////////////'
+    puts '/////////////////////////////////////////////////////////////////////'
   end
 end
