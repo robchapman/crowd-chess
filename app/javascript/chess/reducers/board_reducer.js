@@ -21,7 +21,9 @@ export default function(state = null, action) {
       let new_state = [];
       Object.assign(new_state, state);
       clearSelected(new_state);
-      movePiece(new_state, action.payload.clicked.id, action.payload.selected)
+      action.payload.moves.forEach((move)=>{
+        movePiece(new_state, move.end.id, move.start)
+      });
       return new_state;
     }
     default:
@@ -80,13 +82,13 @@ const clearSelected = (state) => {
   });
 }
 
-const movePiece = (state, clickedSpaceId, selectedSpace) => {
+const movePiece = (state, endSpaceId, startSpace) => {
   state.forEach((space, index) => {
-    if (space.id == clickedSpaceId) {
-      space.pieceTeam = selectedSpace.pieceTeam
-      space.pieceType = selectedSpace.pieceType
+    if (space.id == endSpaceId) {
+      space.pieceTeam = startSpace.pieceTeam
+      space.pieceType = startSpace.pieceType
     }
-    if (space.id == selectedSpace.id) {
+    if (space.id == startSpace.id) {
       space.pieceTeam = null
       space.pieceType = null
     }

@@ -41,16 +41,16 @@ export function selectPiece(clickedSpace, selectedSpace, FEN) {
 export function makeMove(clickedSpace, selectedSpace, FEN, game) {
   // Check if move would produce a game over condition
   // If so send a fetch request to alter GameMaster Model
-  const compMoves = null;
+  let compMoves = null;
   if (!causeGameOver(clickedSpace, selectedSpace, FEN)) {
-    const compMoves = getNextMoveOptions(clickedSpace, selectedSpace, FEN);
+    compMoves = getNextMoveOptions(clickedSpace, selectedSpace, FEN);
   } else {
     gameOverFetch();
   }
   let promise = null;
   if (confirmMove(clickedSpace, selectedSpace, FEN)) {
     const url = `${BASE_URL}/${game}/moves`;
-    const moveBody = {start: selectedSpace.id, end: clickedSpace.id, compMoves: compMoves};
+    const moveBody = {move: { start: selectedSpace.id, end: clickedSpace.id, comp_moves: compMoves}};
     promise = moveFetch(url, moveBody);
   }
   return {
@@ -63,7 +63,7 @@ const getNextMoveOptions = (clickedSpace, selectedSpace, FEN) => {
   const sloppyMove = selectedSpace.notation + clickedSpace.notation;
   const chess = new Chess(FEN);
   chess.move(sloppyMove, {sloppy: true});
-  const valid = chess.moves({verbose: true }).map((move)=>{return move.to});
+  const valid = chess.moves({verbose: true }).map((move)=>{return {end: move.to, start: move.from} });
   return valid
 }
 

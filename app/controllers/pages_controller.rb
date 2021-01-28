@@ -40,11 +40,11 @@ class PagesController < ApplicationController
       @selected_channel = @channel_names[0]
     end
 
-    # testing
+    # # testing
     GameMaster.update(id: GameMaster.last.id, running: false)
 
-    # Ensure Game background job is running
-    BasicGameJob.perform_later unless GameMaster.last.running
+    # # Ensure Game background job is running
+    # BasicGameJob.perform_later unless GameMaster.last.running
   end
 
   private
@@ -54,9 +54,6 @@ class PagesController < ApplicationController
     black = @game.teams.where(colour: 'black')[0]
     white_players = Play.where(active: true).where(team: white).count
     black_players = Play.where(active: true).where(team: black).count
-    flag
-    puts "white players: #{white_players} ,  black players: #{black_players}"
-    flag
     if white_players > black_players
       new_team = black
     elsif black_players > white_players
