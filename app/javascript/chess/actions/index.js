@@ -6,6 +6,8 @@ export const FETCH_BOARD = 'FETCH_BOARD';
 export const SELECT_PIECE = 'SELECT_PIECE';
 export const MAKE_MOVE = 'MAKE_MOVE';
 export const UPDATE_TIMER = 'UPDATE_TIMER';
+export const FETCH_GAME = 'FETCH_GAME';
+export const FETCH_PLAYER_TEAM = 'FETCH_PLAYER_TEAM';
 
 const BASE_URL = '/api/v1/games';
 
@@ -43,9 +45,10 @@ export function makeMove(clickedSpace, selectedSpace, FEN, game) {
   // If so send a fetch request to alter GameMaster Model
   let compMoves = null;
   if (!causeGameOver(clickedSpace, selectedSpace, FEN)) {
+  // if (false) {
     compMoves = getNextMoveOptions(clickedSpace, selectedSpace, FEN);
   } else {
-    gameOverFetch();
+    gameOverFetch(BASE_URL);
   }
   let promise = null;
   if (confirmMove(clickedSpace, selectedSpace, FEN)) {
@@ -57,6 +60,27 @@ export function makeMove(clickedSpace, selectedSpace, FEN, game) {
     type: MAKE_MOVE,
     payload: promise
   };
+}
+
+export function fetchGame() {
+  const url = `${BASE_URL}/latest`;
+  const promise = fetch(url, { credentials: "same-origin" }).then(r => r.json());
+
+  return {
+    type: FETCH_GAME,
+    payload: promise
+  }
+}
+
+
+export function fetchPlayerTeam(player, game) {
+  const url = `${BASE_URL}/${game}/plays/${player}`;
+  const promise = fetch(url, { credentials: "same-origin" }).then(r => r.json());
+
+  return {
+    type: FETCH_PLAYER_TEAM,
+    payload: promise
+  }
 }
 
 const getNextMoveOptions = (clickedSpace, selectedSpace, FEN) => {
@@ -101,6 +125,17 @@ const causeGameOver = (clickedSpace, selectedSpace, FEN) => {
   return chess.game_over();
 }
 
-const gameOverFetch = (url) => {
-
+const gameOverFetch = (url, prevGame) => {
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
+  const promise = fetch(url, {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': csrfToken
+    },
+    body: JSON.stringify({game: {prev_game: prevGame}})
+  })
+  return promise;
 }

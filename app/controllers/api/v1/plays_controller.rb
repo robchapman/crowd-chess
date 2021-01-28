@@ -31,6 +31,10 @@ class Api::V1::PlaysController < ApplicationController
     flag
   end
 
+  def show
+    render json: @play
+  end
+
   private
 
   def set_play

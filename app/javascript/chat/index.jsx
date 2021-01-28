@@ -15,6 +15,8 @@ import App from './components/app';
 // Reducers
 import messagesReducer from './reducers/messages_reducer';
 import selectedChannelReducer from './reducers/selected_channel_reducer';
+import channelsReducer from './reducers/channels_reducer';
+import currentGameReducer from './reducers/current_game_reducer';
 
 
 const chatContainer = document.getElementById('chat_app');
@@ -31,9 +33,9 @@ const initialState = {
 
 const reducers = combineReducers({
   messages: messagesReducer,
-  channels: identityReducer,
+  channels: channelsReducer,
   selectedChannel: selectedChannelReducer,
-  currentGame: identityReducer,
+  currentGame: currentGameReducer,
   userNickname: identityReducer
 });
 

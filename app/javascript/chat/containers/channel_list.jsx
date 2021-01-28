@@ -6,6 +6,27 @@ import { connect } from 'react-redux';
 import { selectChannel, fetchMessages } from '../actions/index';
 
 class ChannelList extends Component {
+  componentWillMount() {
+    let boundFetchMessages = this.fetchMessages.bind(this);
+    consumer.subscriptions.create("ChatChannel", {
+      received(data) {
+        // Called when there's incoming data on the websocket for this channel
+        data.forEach((action) => {
+          switch (action) {
+            case "MESSAGES": {
+              boundFetchMessages();
+            }
+            default: {}
+          }
+        });
+      }
+    });
+  }
+
+  fetchChannels = () => {
+
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedChannel !== this.props.selectedChannel) {
     this.props.fetchMessages(this.props.currentGame, nextProps.selectedChannel);    }

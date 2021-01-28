@@ -7,14 +7,15 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :games, only: [] do
+      resources :games, only: [:create] do
         resources :channels, only: [:index] do
           resources :messages, only: [:index, :create]
         end
         resources :board, only: [:index]
         resources :moves, only: [:index, :create]
-        resources :plays, only: [:update]
+        resources :plays, only: [:update, :show]
         post 'plays/:id/beacon', to: 'plays#beacon'
+        get 'latest/', to: 'games#latest'
       end
     end
   end

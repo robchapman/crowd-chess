@@ -3,6 +3,8 @@ const BASE_URL = '/api/v1/games';
 export const FETCH_MESSAGES = 'FETCH_MESSAGES';
 export const MESSAGE_POSTED = 'MESSAGE_POSTED';
 export const CHANNEL_SELECTED = 'CHANNEL_SELECTED';
+export const FETCH_CHANNELS = 'FETCH_CHANNELS';
+export const FETCH_GAME = 'FETCH_GAME';
 
 export function fetchMessages(game, channel) {
   const url = `${BASE_URL}/${game}/channels/${channel}/messages`;
@@ -35,9 +37,29 @@ export function createMessage(game, channel, content) {
   };
 }
 
+export function fetchChannels(game) {
+  const url = `${BASE_URL}/${game}/channels`;
+  const promise = fetch(url, { credentials: "same-origin" }).then(r => r.json());
+
+  return {
+    type: FETCH_CHANNELS,
+    payload: promise // Will be resolved by redux-promise
+  };
+}
+
 export function selectChannel(channel) {
   return {
     type: CHANNEL_SELECTED,
     payload: channel
   };
+}
+
+export function fetchGame() {
+  const url = `${BASE_URL}/latest`;
+  const promise = fetch(url, { credentials: "same-origin" }).then(r => r.json());
+
+  return {
+    type: FETCH_GAME,
+    payload: promise
+  }
 }

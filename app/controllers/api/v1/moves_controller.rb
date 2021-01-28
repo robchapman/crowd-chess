@@ -35,7 +35,7 @@ class Api::V1::MovesController < ApplicationController
       helpers.convertSpace(space)
     end
     # btw update board
-    ActionCable.server.broadcast 'game_channel', "Update Board"
+    ActionCable.server.broadcast 'game_channel', ["BOARD"]
 
     render json: {
       FEN: helpers.get_FEN(spaces, @game),

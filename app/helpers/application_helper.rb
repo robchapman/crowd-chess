@@ -197,5 +197,9 @@ module ApplicationHelper
     teams.each do |team|
       Channel.create(game: game, team: team, name: team.colour)
     end
+    general_team = Team.find_by(game: game, colour: 'general')
+    return unless general_team
+
+    Channel.create(game: game, team: general_team, name: general_team.colour)
   end
 end
