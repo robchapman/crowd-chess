@@ -44,8 +44,8 @@ export function makeMove(clickedSpace, selectedSpace, FEN, game) {
   // Check if move would produce a game over condition
   // If so send a fetch request to alter GameMaster Model
   let compMoves = null;
-  if (!causeGameOver(clickedSpace, selectedSpace, FEN)) {
-  // if (false) {
+  // if (!causeGameOver(clickedSpace, selectedSpace, FEN)) {
+  if (false) {
     compMoves = getNextMoveOptions(clickedSpace, selectedSpace, FEN);
   } else {
     gameOverFetch(BASE_URL);

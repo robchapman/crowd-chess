@@ -10,7 +10,7 @@ class ChannelList extends Component {
   componentWillMount() {
     let boundFetchChannels = this.props.fetchChannels.bind(this);
     consumer.subscriptions.create({channel: "ChatChannel", state: 'channels'}, {
-      received(data) {
+      received: (data) => {
         // Called when there's incoming data on the websocket for this channel
         console.log("UPDATING CHANNELS IN CHAT");
         boundFetchChannels(this.props.currentGame);

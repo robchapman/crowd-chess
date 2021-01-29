@@ -16,13 +16,13 @@ class Api::V1::GamesController < ApplicationController
     helpers.flag
 
 
-    ActionCable.server.broadcast 'game_current game', new_game.id
-    ActionCable.server.broadcast 'chat_current game', new_game.id
+    ActionCable.server.broadcast 'game_current_game', new_game.id
+    ActionCable.server.broadcast 'chat_current_game', new_game.id
 
     sleep 5
 
     ActionCable.server.broadcast 'game_board', 'Update Board'
-    ActionCable.server.broadcast 'game_current team', 'Update Current Team'
+    ActionCable.server.broadcast 'game_current_team', 'Update Current Team'
     ActionCable.server.broadcast 'chat_channels', 'Update Channels'
     ActionCable.server.broadcast 'chat_messages', 'Update Messages'
   end
