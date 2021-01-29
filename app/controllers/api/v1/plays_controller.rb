@@ -9,11 +9,11 @@ class Api::V1::PlaysController < ApplicationController
     white_players = Play.where(active: true).where(team: white).count
     black_players = Play.where(active: true).where(team: black).count
 
-    flag
-    puts "Play: #{@play.id} // #{@play.player.nickname} // #{@play.team.colour} // switched to: #{@play.active}"
+    helpers.flag
+    puts "Play: #{@play.id} // #{@play.player.nickname} // #{@play.team.colour} // switched to: #{!@play.active}"
     puts "black players: #{black_players}"
     puts "white players: #{white_players}"
-    flag
+    helpers.flag
   end
 
   def beacon
@@ -24,11 +24,11 @@ class Api::V1::PlaysController < ApplicationController
     white_players = Play.where(active: true).where(team: white).count
     black_players = Play.where(active: true).where(team: black).count
 
-    flag
-    puts "Play: #{@play.id} // #{@play.player.nickname} // #{@play.team.colour} // switched to: #{@play.active}"
+    helpers.flag
+    puts "Play: #{@play.id} // #{@play.player.nickname} // #{@play.team.colour} // switched to: #{!@play.active}"
     puts "black players: #{black_players}"
     puts "white players: #{white_players}"
-    flag
+    helpers.flag
   end
 
   def show
@@ -40,16 +40,12 @@ class Api::V1::PlaysController < ApplicationController
   def set_play
     player = current_user || AnonUser.find_by(nickname: session[:anonNickname])
     @play = player.plays.where(game_id: params[:game_id])[0]
+    helpers.flag
+    puts @play.active
+    helpers.flag
   end
 
   def play_params
     params.require(:play).permit(:active)
-  end
-
-  def flag
-    puts '/////////////////////////////////////////////////////////////////////'
-    puts '/////////////////////////////////////////////////////////////////////'
-    puts '/////////////////////////////////////////////////////////////////////'
-    puts '/////////////////////////////////////////////////////////////////////'
   end
 end

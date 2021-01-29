@@ -8,18 +8,12 @@ import { selectChannel, fetchMessages, fetchChannels } from '../actions/index';
 
 class ChannelList extends Component {
   componentWillMount() {
-    let boundFetchMessages = this.props.fetchChannels.bind(this);
-    consumer.subscriptions.create("ChatChannel", {
+    let boundFetchChannels = this.props.fetchChannels.bind(this);
+    consumer.subscriptions.create({channel: "ChatChannel", state: 'channels'}, {
       received(data) {
         // Called when there's incoming data on the websocket for this channel
-        data.forEach((action) => {
-          switch (action) {
-            case "CHANNELS": {
-              boundFetchhannels(this.props.currentGame);
-            }
-            default: {}
-          }
-        });
+        console.log("UPDATING CHANNELS IN CHAT");
+        boundFetchChannels(this.props.currentGame);
       }
     });
   }

@@ -11,12 +11,20 @@ class Api::V1::GamesController < ApplicationController
     end
 
     # Update Front ends
+    helpers.flag
+    puts "ABOUT TO BROADCAST"
+    helpers.flag
+
+
+    ActionCable.server.broadcast 'game_current game', new_game.id
+    ActionCable.server.broadcast 'chat_current game', new_game.id
+
     sleep 5
 
-    ActionCable.server.broadcast 'game_channel', ['CURRENT_GAME']
-    ActionCable.server.broadcast 'chat_channel', ['CURRENT_GAME']
-    ActionCable.server.broadcast 'game_channel', ['BOARD', 'PLAYER_TEAM']
-    ActionCable.server.broadcast 'chat_channel', ['CHANNELS', 'MESSAGES']
+    ActionCable.server.broadcast 'game_board', 'Update Board'
+    ActionCable.server.broadcast 'game_current team', 'Update Current Team'
+    ActionCable.server.broadcast 'chat_channels', 'Update Channels'
+    ActionCable.server.broadcast 'chat_messages', 'Update Messages'
   end
 
   def latest

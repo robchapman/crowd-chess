@@ -15,17 +15,11 @@ class Board extends Component {
 
     // Actioncable listening
     let boundFetchBoard = this.fetchBoard.bind(this);
-    consumer.subscriptions.create("GameChannel", {
+    consumer.subscriptions.create({channel: "GameChannel", state: "board"}, {
       received(data) {
         // Called when there's incoming data on the websocket for this channel
-        data.forEach((action) => {
-          switch (action) {
-            case "BOARD": {
-              boundFetchBoard();
-            }
-            default: {}
-          }
-        });
+        console.log("UPDATING BOARD IN CHESS");
+        boundFetchBoard();
       }
     });
   }

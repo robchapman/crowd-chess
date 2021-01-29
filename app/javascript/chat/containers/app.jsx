@@ -5,7 +5,7 @@ import MessageList from '../containers/message_list';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchGame } from '../actions/index';
+import { setGame } from '../actions/index';
 
 import consumer from "../../channels/consumer"
 
@@ -15,24 +15,16 @@ import PageVisibility from 'react-page-visibility';
 class App extends Component {
 
   ComponentDidMount() {
-    this.addUnloadListener();
-
+    // this.addUnloadListener();
     // Actioncable listening
-    let boundFetchGame = this.fetchGame.bind(this);
-    consumer.subscriptions.create("GameChannel", {
+    let boundSetGame = this.setGame.bind(this);
+    consumer.subscriptions.create({channel: "ChatChannel", state: 'current game'}, {
       received(data) {
         // Called when there's incoming data on the websocket for this channel
-        data.forEach((action) => {
-          switch (action) {
-            case "CURRENT_GAME": {
-              boundFetchGame();
-            }
-            default: {}
-          }
-        });
+        console.log("UPDATING CURRENT GAME IN CHAT");
+        boundSetGame(data);
       }
     });
-
   }
 
   addUnloadListener = () => {
@@ -42,8 +34,8 @@ class App extends Component {
   }
 
   handleVisibilityChange = (isVisible, visibilityState) => {
-    // console.log(isVisible);
-    // this.sendActiveFetch(isVisible);
+/*    console.log(isVisible);
+    this.sendActiveFetch(isVisible);*/
     this.sendActiveBeacon(isVisible);
   }
 
@@ -97,7 +89,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchGame }, dispatch);
+  return bindActionCreators({ setGame }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

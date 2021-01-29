@@ -26,7 +26,7 @@ class Api::V1::MessagesController < ApplicationController
       'content': message.content,
       'created_at': message.created_at
     }
-    ActionCable.server.broadcast 'chat_channel',
+    ActionCable.server.broadcast 'chat_messages',
       'id': message.id,
       'author': message.author&.nickname || 'anon',
       'content': message.content,

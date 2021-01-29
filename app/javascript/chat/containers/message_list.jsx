@@ -13,17 +13,11 @@ class MessageList extends Component {
   componentWillMount() {
     this.fetchMessages();
     let boundFetchMessages = this.fetchMessages.bind(this);
-    consumer.subscriptions.create("ChatChannel", {
+    consumer.subscriptions.create({ channel: "ChatChannel", state: "messages" }, {
       received(data) {
         // Called when there's incoming data on the websocket for this channel
-        data.forEach((action) => {
-          switch (action) {
-            case "MESSAGES": {
-              boundFetchMessages();
-            }
-            default: {}
-          }
-        });
+        console.log("UPDATING MESSAGES IN CHAT");
+        boundFetchMessages();
       }
     });
   }

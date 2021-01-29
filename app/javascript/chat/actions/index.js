@@ -4,7 +4,7 @@ export const FETCH_MESSAGES = 'FETCH_MESSAGES';
 export const MESSAGE_POSTED = 'MESSAGE_POSTED';
 export const CHANNEL_SELECTED = 'CHANNEL_SELECTED';
 export const FETCH_CHANNELS = 'FETCH_CHANNELS';
-export const FETCH_GAME = 'FETCH_GAME';
+export const SET_GAME = 'SET_GAME';
 
 export function fetchMessages(game, channel) {
   const url = `${BASE_URL}/${game}/channels/${channel}/messages`;
@@ -54,12 +54,9 @@ export function selectChannel(channel) {
   };
 }
 
-export function fetchGame() {
-  const url = `${BASE_URL}/latest`;
-  const promise = fetch(url, { credentials: "same-origin" }).then(r => r.json());
-
+export function setGame(game) {
   return {
     type: FETCH_GAME,
-    payload: promise
+    payload: game
   }
 }

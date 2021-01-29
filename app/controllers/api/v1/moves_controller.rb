@@ -35,7 +35,7 @@ class Api::V1::MovesController < ApplicationController
       helpers.convertSpace(space)
     end
     # btw update board
-    ActionCable.server.broadcast 'game_channel', ["BOARD"]
+    ActionCable.server.broadcast 'game_board', "Update Board"
 
     render json: {
       FEN: helpers.get_FEN(spaces, @game),
@@ -68,10 +68,6 @@ class Api::V1::MovesController < ApplicationController
     start_space.save
     end_space.piece = piece
     end_space.save
-
-    flag
-    puts move
-    flag
 
     move
   end

@@ -5,29 +5,28 @@ import Board from '../containers/board';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchGame, fetchPlayerTeam } from '../actions/index';
+import { setGame, fetchPlayerTeam } from '../actions/index';
 
 import consumer from "../../channels/consumer"
 
 class App extends Component {
   ComponentDidMount() {
     // Actioncable listening
-    let boundFetchGame = this.fetchGame.bind(this);
-    let boundFetchPlayerTeam = this.fetchPlayerTeam.bind(this);
-    consumer.subscriptions.create("GameChannel", {
+    let boundSetGame = this.setGame.bind(this);
+    consumer.subscriptions.create({channel: "GameChannel", state: 'current game'}, {
       received(data) {
         // Called when there's incoming data on the websocket for this channel
-        data.forEach((action) => {
-          switch (action) {
-            case "CURRENT_GAME": {
-              boundFetchGame();
-            }
-            case "PLAYER_TEAM": {
-              boundFetchPlayerTeam(this.props.currentGame);
-            }
-            default: {}
-          }
-        });
+        console.log("UPDATING CURRENT GAME IN GAME");
+        boundSetGame(data);
+      }
+    });
+
+    let boundFetchPlayerTeam = this.fetchPlayerTeam.bind(this);
+    consumer.subscriptions.create({channel: "GameChannel", state: 'player team'}, {
+      received(data) {
+        // Called when there's incoming data on the websocket for this channel
+        console.log("UPDATING PLAYER TEAM IN GAME");
+        boundFetchPlayerTeam(this.props.currentGame)
       }
     });
   }
@@ -49,7 +48,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchGame, fetchPlayerTeam }, dispatch);
+  return bindActionCreators({ setGame, fetchPlayerTeam }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -6,7 +6,7 @@ export const FETCH_BOARD = 'FETCH_BOARD';
 export const SELECT_PIECE = 'SELECT_PIECE';
 export const MAKE_MOVE = 'MAKE_MOVE';
 export const UPDATE_TIMER = 'UPDATE_TIMER';
-export const FETCH_GAME = 'FETCH_GAME';
+export const SET_GAME = 'SET_GAME';
 export const FETCH_PLAYER_TEAM = 'FETCH_PLAYER_TEAM';
 
 const BASE_URL = '/api/v1/games';
@@ -62,13 +62,10 @@ export function makeMove(clickedSpace, selectedSpace, FEN, game) {
   };
 }
 
-export function fetchGame() {
-  const url = `${BASE_URL}/latest`;
-  const promise = fetch(url, { credentials: "same-origin" }).then(r => r.json());
-
+export function fetchGame(game) {
   return {
-    type: FETCH_GAME,
-    payload: promise
+    type: SET_GAME,
+    payload: game
   }
 }
 
