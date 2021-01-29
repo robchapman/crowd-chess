@@ -10,9 +10,9 @@ import { setGame, fetchPlayerTeam } from '../actions/index';
 import consumer from "../../channels/consumer"
 
 class App extends Component {
-  ComponentWillMount() {
+  componentWillMount() {
     // Actioncable listening
-    let boundSetGame = this.setGame.bind(this);
+    let boundSetGame = this.props.setGame.bind(this);
     consumer.subscriptions.create({channel: "GameChannel", state: 'current_game'}, {
       received(data) {
         // Called when there's incoming data on the websocket for this channel
@@ -21,7 +21,7 @@ class App extends Component {
       }
     });
 
-    let boundFetchPlayerTeam = this.fetchPlayerTeam.bind(this);
+    let boundFetchPlayerTeam = this.props.fetchPlayerTeam.bind(this);
     consumer.subscriptions.create({channel: "GameChannel", state: 'player_team'}, {
       received(data) {
         // Called when there's incoming data on the websocket for this channel

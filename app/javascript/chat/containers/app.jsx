@@ -14,11 +14,10 @@ import PageVisibility from 'react-page-visibility';
 
 class App extends Component {
 
-  ComponentWillMount() {
-    console.log("CHAT APP CONTAINER DID MOUNT");
+  componentDidMount() {
     // this.addUnloadListener();
     // Actioncable listening
-    let boundSetGame = this.setGame.bind(this);
+    let boundSetGame = this.props.setGame.bind(this);
     consumer.subscriptions.create({channel: "ChatChannel", state: 'current_game'}, {
       received(data) {
         // Called when there's incoming data on the websocket for this channel

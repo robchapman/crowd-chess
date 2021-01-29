@@ -56,7 +56,7 @@ export function selectChannel(channel) {
 
 export function setGame(game) {
   return {
-    type: FETCH_GAME,
+    type: SET_GAME,
     payload: game
   }
 }
