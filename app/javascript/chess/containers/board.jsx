@@ -18,7 +18,7 @@ class Board extends Component {
     consumer.subscriptions.create({channel: "GameChannel", state: "board"}, {
       received(data) {
         // Called when there's incoming data on the websocket for this channel
-        console.log("UPDATING BOARD IN CHESS");
+        // console.log("UPDATING BOARD IN CHESS");
         boundFetchBoard();
       }
     });

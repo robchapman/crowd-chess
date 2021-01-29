@@ -16,7 +16,7 @@ class MessageList extends Component {
     consumer.subscriptions.create({ channel: "ChatChannel", state: "messages" }, {
       received(data) {
         // Called when there's incoming data on the websocket for this channel
-        console.log("UPDATING MESSAGES IN CHAT");
+        // console.log("UPDATING MESSAGES IN CHAT");
         boundFetchMessages();
       }
     });

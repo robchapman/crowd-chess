@@ -16,7 +16,7 @@ class App extends Component {
     consumer.subscriptions.create({channel: "GameChannel", state: 'current_game'}, {
       received(data) {
         // Called when there's incoming data on the websocket for this channel
-        console.log("UPDATING CURRENT GAME IN GAME");
+        // console.log("UPDATING CURRENT GAME IN GAME");
         boundSetGame(data);
       }
     });
@@ -25,7 +25,7 @@ class App extends Component {
     consumer.subscriptions.create({channel: "GameChannel", state: 'player_team'}, {
       received(data) {
         // Called when there's incoming data on the websocket for this channel
-        console.log("UPDATING PLAYER TEAM IN GAME");
+        // console.log("UPDATING PLAYER TEAM IN GAME");
         boundFetchPlayerTeam(this.props.currentGame)
       }
     });

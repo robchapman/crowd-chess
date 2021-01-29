@@ -21,7 +21,7 @@ class App extends Component {
     consumer.subscriptions.create({channel: "ChatChannel", state: 'current_game'}, {
       received(data) {
         // Called when there's incoming data on the websocket for this channel
-        console.log("UPDATING CURRENT GAME IN CHAT");
+        // console.log("UPDATING CURRENT GAME IN CHAT");
         boundSetGame(data);
       }
     });
