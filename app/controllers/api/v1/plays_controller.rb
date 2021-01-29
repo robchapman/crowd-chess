@@ -38,7 +38,7 @@ class Api::V1::PlaysController < ApplicationController
   private
 
   def set_play
-    player = current_user || AnonUser.where(nickname: params[:id])[0]
+    player = current_user || AnonUser.find_by(nickname: session[:anonNickname])
     @play = player.plays.where(game_id: params[:game_id])[0]
   end
 

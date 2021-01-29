@@ -10,6 +10,7 @@ class PagesController < ApplicationController
 
     if current_user # If User logged in
       player = current_user
+      session[:anonNickname] = current_user.nickname
     elsif !AnonUser.where(nickname: session[:anonNickname]).empty? # Users Anon nickname exists in DB
       player = AnonUser.where(nickname: session[:anonNickname])[0]
     elsif session[:anonNickname] # Nickname in session but no record

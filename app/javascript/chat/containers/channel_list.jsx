@@ -3,28 +3,25 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { selectChannel, fetchMessages } from '../actions/index';
+import consumer from "../../channels/consumer"
+import { selectChannel, fetchMessages, fetchChannels } from '../actions/index';
 
 class ChannelList extends Component {
   componentWillMount() {
-    let boundFetchMessages = this.fetchMessages.bind(this);
+    let boundFetchMessages = this.props.fetchChannels.bind(this);
     consumer.subscriptions.create("ChatChannel", {
       received(data) {
         // Called when there's incoming data on the websocket for this channel
         data.forEach((action) => {
           switch (action) {
-            case "MESSAGES": {
-              boundFetchMessages();
+            case "CHANNELS": {
+              boundFetchhannels(this.props.currentGame);
             }
             default: {}
           }
         });
       }
     });
-  }
-
-  fetchChannels = () => {
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -69,7 +66,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ selectChannel, fetchMessages }, dispatch);
+  return bindActionCreators({ selectChannel, fetchMessages, fetchChannels }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChannelList);

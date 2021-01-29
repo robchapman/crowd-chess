@@ -72,9 +72,8 @@ export function fetchGame() {
   }
 }
 
-
-export function fetchPlayerTeam(player, game) {
-  const url = `${BASE_URL}/${game}/plays/${player}`;
+export function fetchPlayerTeam(game) {
+  const url = `${BASE_URL}/${game}/plays/session`;
   const promise = fetch(url, { credentials: "same-origin" }).then(r => r.json());
 
   return {

@@ -3,6 +3,11 @@ import ChannelList from '../containers/channel_list';
 import MessageList from '../containers/message_list';
 
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { fetchGame } from '../actions/index';
+
+import consumer from "../../channels/consumer"
 
 // Higher Order Components
 import PageVisibility from 'react-page-visibility';
@@ -10,21 +15,34 @@ import PageVisibility from 'react-page-visibility';
 class App extends Component {
 
   ComponentDidMount() {
-    // document.addEventListener('visibilitychange', () => {
-    //   if (document.visibilityState == 'hidden') {
-    //     this.sendActiveBeacon(false)
-    //     // this.sendActiveFetch(false)
-    //   } else if (document.visibilityState == "visible") {
-    //     this.sendActiveBeacon(true)
-    //   }
-    // });
+    this.addUnloadListener();
+
+    // Actioncable listening
+    let boundFetchGame = this.fetchGame.bind(this);
+    consumer.subscriptions.create("GameChannel", {
+      received(data) {
+        // Called when there's incoming data on the websocket for this channel
+        data.forEach((action) => {
+          switch (action) {
+            case "CURRENT_GAME": {
+              boundFetchGame();
+            }
+            default: {}
+          }
+        });
+      }
+    });
+
+  }
+
+  addUnloadListener = () => {
     window.addEventListener('beforeunload', (event) => {
       this.sendActiveBeacon(false);
     });
   }
 
   handleVisibilityChange = (isVisible, visibilityState) => {
-    console.log(isVisible);
+    // console.log(isVisible);
     // this.sendActiveFetch(isVisible);
     this.sendActiveBeacon(isVisible);
   }
@@ -78,6 +96,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, null)(App);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchGame }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 

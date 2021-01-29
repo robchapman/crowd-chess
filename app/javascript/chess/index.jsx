@@ -10,7 +10,7 @@ import ReduxPromise from 'redux-promise';
 // import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 //Internal Modules
-import App from './components/app';
+import App from './containers/app';
 
 // Reducers
 import timerReducer from './reducers/timer_reducer';
