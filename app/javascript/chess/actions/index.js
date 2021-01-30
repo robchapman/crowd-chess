@@ -29,8 +29,7 @@ export function fetchBoard(game) {
   };
 }
 
-export function setBoard(board) {
-  const payload = {};
+export function setBoard(payload) {
   return {
     type: SET_BOARD,
     payload: payload

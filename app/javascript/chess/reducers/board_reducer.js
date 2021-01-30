@@ -23,10 +23,10 @@ export default function(state = null, action) {
     case MAKE_MOVE:{
       let new_state = [];
       Object.assign(new_state, state);
-      clearSelected(new_state);
-      action.payload.moves.forEach((move)=>{
-        movePiece(new_state, move.end.id, move.start)
-      });
+      // clearSelected(new_state);
+      // action.payload.moves.forEach((move)=>{
+      //   movePiece(new_state, move.end.id, move.start)
+      // });
       return new_state;
     }
     default:

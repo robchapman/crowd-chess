@@ -15,11 +15,6 @@ class Api::V1::MovesController < ApplicationController
     black = @game.teams.where(colour: 'black')[0]
     white_players = Play.where(active: true).where(team: white).count
     black_players = Play.where(active: true).where(team: black).count
-    flag
-    puts "black players: #{black_players}"
-    puts "white players: #{white_players}"
-    puts "doing comp move" if move_params[:comp_moves]
-    flag
 
     if move_params[:comp_moves] && (white_players.zero? || black_players.zero?)
       notation = move_params[:comp_moves].sample
@@ -34,13 +29,15 @@ class Api::V1::MovesController < ApplicationController
     spaces = helpers.sort_spaces(@game.board.spaces).map do |space|
       helpers.convertSpace(space)
     end
+    new_fen = helpers.get_FEN(spaces, @game)
     # Update board and broadcast
-    ActionCable.server.broadcast 'game_board', { board: spaces }
+    ActionCable.server.broadcast 'game_board', { board: spaces, FEN: new_fen }
 
     render json: {
-      FEN: helpers.get_FEN(spaces, @game),
+      FEN: new_fen,
       moves: moves
     }.to_json
+
   end
 
   private
