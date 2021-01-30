@@ -1,8 +1,11 @@
-import { FETCH_BOARD, SELECT_PIECE, MAKE_MOVE } from '../actions';
+import { FETCH_BOARD, SET_BOARD, SELECT_PIECE, MAKE_MOVE } from '../actions';
 
 export default function(state = null, action) {
   switch (action.type) {
     case FETCH_BOARD: {
+      return action.payload.board;
+    }
+    case SET_BOARD: {
       return action.payload.board;
     }
     case SELECT_PIECE: {

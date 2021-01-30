@@ -11,15 +11,10 @@ class Api::V1::GamesController < ApplicationController
     end
 
     # Update Front ends
-    helpers.flag
-    puts "ABOUT TO BROADCAST"
-    helpers.flag
-
-
     ActionCable.server.broadcast 'game_current_game', new_game.id
     ActionCable.server.broadcast 'chat_current_game', new_game.id
 
-    sleep 5
+    sleep 2
 
     ActionCable.server.broadcast 'game_board', 'Update Board'
     ActionCable.server.broadcast 'game_current_team', 'Update Current Team'
@@ -31,8 +26,5 @@ class Api::V1::GamesController < ApplicationController
     render json: Game.last.id
   end
 end
-
-# {type: 'CURRENT_GAME', payload: new_game}
-
 
 

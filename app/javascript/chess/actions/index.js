@@ -3,6 +3,7 @@ import Chess from "chess.js";
 // const chess = new Chess();
 
 export const FETCH_BOARD = 'FETCH_BOARD';
+export const SET_BOARD = 'SET_BOARD';
 export const SELECT_PIECE = 'SELECT_PIECE';
 export const MAKE_MOVE = 'MAKE_MOVE';
 export const UPDATE_TIMER = 'UPDATE_TIMER';
@@ -25,6 +26,14 @@ export function fetchBoard(game) {
   return {
     type: FETCH_BOARD,
     payload: promise // Will be resolved by redux-promise
+  };
+}
+
+export function setBoard(board) {
+  const payload = {};
+  return {
+    type: SET_BOARD,
+    payload: payload
   };
 }
 

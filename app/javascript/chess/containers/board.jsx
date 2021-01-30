@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Space from '../containers/space';
 
 import consumer from "../../channels/consumer"
-import { fetchBoard } from '../actions';
+import { fetchBoard, setBoard } from '../actions';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -14,12 +14,11 @@ class Board extends Component {
     this.fetchBoard();
 
     // Actioncable listening
-    let boundFetchBoard = this.fetchBoard.bind(this);
+    let boundSetBoard = this.props.setBoard.bind(this);
     consumer.subscriptions.create({channel: "GameChannel", state: "board"}, {
       received(data) {
         // Called when there's incoming data on the websocket for this channel
-        // console.log("UPDATING BOARD IN CHESS");
-        boundFetchBoard();
+        boundSetBoard();
       }
     });
   }
@@ -58,7 +57,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchBoard }, dispatch);
+  return bindActionCreators({ fetchBoard, setBoard }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board);

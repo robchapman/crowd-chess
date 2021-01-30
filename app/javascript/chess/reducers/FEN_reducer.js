@@ -1,4 +1,4 @@
-import { FETCH_BOARD, MAKE_MOVE } from '../actions';
+import { FETCH_BOARD, SET_BOARD, MAKE_MOVE } from '../actions';
 
 export default function(state = null, action) {
   switch (action.type) {
