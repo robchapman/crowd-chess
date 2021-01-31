@@ -91,8 +91,13 @@ const getNextMoveOptions = (clickedSpace, selectedSpace, FEN) => {
   const sloppyMove = selectedSpace.notation + clickedSpace.notation;
   const chess = new Chess(FEN);
   chess.move(sloppyMove, {sloppy: true});
-  const valid = chess.moves({verbose: true }).map((move)=>{return {end: move.to, start: move.from} });
-  return valid
+  const moves = chess.moves({verbose: true });
+  const captures = moves.filter(move => move.flags.includes('c'));
+  if (captures.length > 0) {
+    return captures.map((move)=>{return {end: move.to, start: move.from} });
+  } else {
+    return moves.map((move)=>{return {end: move.to, start: move.from} });
+  }
 }
 
 const getMoveOptions = (clickedSpace, FEN) => {
