@@ -59,6 +59,8 @@ class PagesController < ApplicationController
       new_team = black
     elsif black_players > white_players
       new_team = white
+    elsif white_players.zero? && black_players.zero?
+      new_team = white
     else
       new_team = rand(2).zero? ? white : black
     end
