@@ -61,3 +61,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "faker", "~> 2.15"
 
 gem "whenever", "~> 1.0"
+
+gem "bullet", "~> 6.1", group: 'development'

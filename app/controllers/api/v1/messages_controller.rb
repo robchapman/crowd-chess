@@ -3,7 +3,7 @@ class Api::V1::MessagesController < ApplicationController
   before_action :set_anon_user, only: :create
 
   def index
-    messages = Message.where("channel_id = #{@channel.id}").order(created_at: :asc)
+    messages = Message.includes(:author).where("channel_id = #{@channel.id}").order(created_at: :asc)
     messages_new = messages.map do |message|
       {
         'id': message.id,

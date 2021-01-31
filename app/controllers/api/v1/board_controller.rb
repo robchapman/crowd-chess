@@ -1,8 +1,8 @@
 class Api::V1::BoardController < ApplicationController
   before_action :set_game
   def index
-    # spaces = sort_spaces(@game.board.spaces)
-    spaces = helpers.sort_spaces(@game.board.spaces).map do |space|
+    spaces = Space.includes({ piece: :team }, :team).where(board: @game.board)
+    spaces = helpers.sort_spaces(spaces).map do |space|
       helpers.convertSpace(space)
     end
     render json: { board: spaces, FEN: helpers.get_FEN(spaces, @game) }

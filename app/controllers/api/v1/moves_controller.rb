@@ -26,7 +26,8 @@ class Api::V1::MovesController < ApplicationController
     end
 
     # Get FEN of Updated Board config
-    spaces = helpers.sort_spaces(@game.board.spaces).map do |space|
+    spaces = Space.includes({ piece: :team }, :team).where(board: @game.board)
+    spaces = helpers.sort_spaces(spaces).map do |space|
       helpers.convertSpace(space)
     end
     new_fen = helpers.get_FEN(spaces, @game)
