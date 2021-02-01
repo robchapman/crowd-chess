@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Space from '../containers/space';
 
-import consumer from "../../channels/consumer"
+import consumer from "../../channels/consumer";
 import { fetchBoard, setBoard } from '../actions';
 
 import { bindActionCreators } from 'redux';

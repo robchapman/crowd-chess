@@ -9,6 +9,7 @@ export const MAKE_MOVE = 'MAKE_MOVE';
 export const UPDATE_TIMER = 'UPDATE_TIMER';
 export const SET_GAME = 'SET_GAME';
 export const FETCH_PLAYER_TEAM = 'FETCH_PLAYER_TEAM';
+export const SET_TEAM_SIZES = 'SET_TEAM_SIZES';
 
 const BASE_URL = '/api/v1/games';
 
@@ -84,6 +85,13 @@ export function fetchPlayerTeam(game) {
   return {
     type: FETCH_PLAYER_TEAM,
     payload: promise
+  }
+}
+
+export function setTeamSizes(teamSizes) {
+  return {
+    type: SET_TEAM_SIZES,
+    payload: teamSizes
   }
 }
 

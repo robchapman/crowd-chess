@@ -30,7 +30,7 @@ class PagesController < ApplicationController
       player_team = new_player_team
       Play.create(team: player_team, player: player, active: true, game: @game)
     end
-
+    @team_sizes = { white: 0, black: 0 }
     @player_team = player_team.colour
     # Get intial Channel names state(should not change)
     # @channel_names = @game.channels.map { |channel| channel.name }

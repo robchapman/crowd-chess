@@ -9,6 +9,8 @@ class Api::V1::PlaysController < ApplicationController
     white_players = Play.where(active: true).where(team: white).count
     black_players = Play.where(active: true).where(team: black).count
 
+    ActionCable.server.broadcast 'game_teamSizes', { white: white_players, black: black_players }
+
     helpers.flag
     puts "Play: #{@play.id} // #{@play.player.nickname} // #{@play.team.colour} // switched to: #{!@play.active}"
     puts "black players: #{black_players}"
@@ -23,6 +25,8 @@ class Api::V1::PlaysController < ApplicationController
     black = Game.last.teams.where(colour: 'black')[0]
     white_players = Play.where(active: true).where(team: white).count
     black_players = Play.where(active: true).where(team: black).count
+
+    ActionCable.server.broadcast 'game_teamSizes', { white: white_players, black: black_players }
 
     helpers.flag
     puts "Play: #{@play.id} // #{@play.player.nickname} // #{@play.team.colour} // switched to: #{!@play.active}"
