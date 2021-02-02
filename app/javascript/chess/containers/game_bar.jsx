@@ -16,7 +16,6 @@ class GameBar extends Component {
     consumer.subscriptions.create({channel: "GameChannel", state: "teamSizes"}, {
       received(data) {
         // Called when there's incoming data on the websocket for this channel
-        console.log(data);
         boundSetTeamSizes(data);
       }
     });
@@ -35,6 +34,9 @@ class GameBar extends Component {
   }
 
   render() {
+    const whitePlayers = this.props.teamSizes.white || 0;
+    const blackPlayers = this.props.teamSizes.black || 0;
+
     return (
       <div className="game-bar">
         <div className="game-bar-upper">
@@ -44,9 +46,9 @@ class GameBar extends Component {
         </div>
         <div className="game-bar-lower">
           <div className="player-stats">
-            <p>{`White: ${this.props.teamSizes.white} ${this.pluralize('player', this.props.teamSizes.white)}`}</p>
+            <p>{`White: ${whitePlayers} ${this.pluralize('player', whitePlayers)}`}</p>
             <p>{`Playing as: ${this.props.playerTeam}`}</p>
-            <p>{`Black: ${this.props.teamSizes.black} ${this.pluralize('player', this.props.teamSizes.black)}`}</p>
+            <p>{`Black: ${blackPlayers} ${this.pluralize('player', blackPlayers)}`}</p>
           </div>
         </div>
       </div>

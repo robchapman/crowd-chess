@@ -30,7 +30,7 @@ class PagesController < ApplicationController
       player_team = new_player_team
       Play.create(team: player_team, player: player, active: true, game: @game)
     end
-    @team_sizes = { white: 0, black: 0 }
+
     @player_team = player_team.colour
     # Get intial Channel names state(should not change)
     # @channel_names = @game.channels.map { |channel| channel.name }
@@ -41,8 +41,11 @@ class PagesController < ApplicationController
       @selected_channel = @channel_names[0]
     end
 
+    @team_sizes = get_team_sizes(@game)
+    ActionCable.server.broadcast 'game_teamSizes', @team_sizes
+
     # # testing
-    GameMaster.update(id: GameMaster.last.id, running: false)
+    # GameMaster.update(id: GameMaster.last.id, running: false)
 
     # # Ensure Game background job is running
     # BasicGameJob.perform_later unless GameMaster.last.running
@@ -93,5 +96,14 @@ class PagesController < ApplicationController
     animal = Faker::Creature::Animal.name
     number = Faker::Number.number(digits: 2)
     "#{verb}-#{animal}-#{number}"
+  end
+
+  def get_team_sizes(game)
+    team_sizes = {}
+    game.teams.each do |team|
+      team_size = Play.where(active: true).where(team: team).count
+      team_sizes[team.colour.to_sym] = team_size unless team_size.zero?
+    end
+    team_sizes
   end
 end
