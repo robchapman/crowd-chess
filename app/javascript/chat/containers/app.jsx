@@ -15,7 +15,7 @@ import PageVisibility from 'react-page-visibility';
 class App extends Component {
 
   componentDidMount() {
-    // this.addUnloadListener();
+    this.addUnloadListener();
     // Actioncable listening
     let boundSetGame = this.props.setGame.bind(this);
     consumer.subscriptions.create({channel: "ChatChannel", state: 'current_game'}, {
