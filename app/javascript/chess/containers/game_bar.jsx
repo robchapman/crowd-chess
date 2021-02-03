@@ -46,14 +46,24 @@ class GameBar extends Component {
         </div>
         <div className="game-bar-lower">
           <div className="player-stats">
-            <p>{`White: ${whitePlayers} ${this.pluralize('player', whitePlayers)}`}</p>
-            <p>{`Playing as: ${this.props.playerTeam}`}</p>
-            <p>{`Black: ${blackPlayers} ${this.pluralize('player', blackPlayers)}`}</p>
+            <div className="left">
+              <p>White: <span>{`${whitePlayers} ${this.pluralize('player', whitePlayers)}`}</span></p>
+            </div>
+            <div className="center">
+              <p>Playing as: <span>{`${this.props.playerTeam.capitalize()}`}</span></p>
+            </div>
+            <div className="right">
+              <p>Black: <span>{`${blackPlayers} ${this.pluralize('player', blackPlayers)}`}</span></p>
+            </div>
           </div>
         </div>
       </div>
     );
   }
+}
+
+String.prototype.capitalize = function() {
+  return this[0].toUpperCase() + this.slice(1);
 }
 
 function mapStateToProps(state) {

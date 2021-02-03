@@ -69,7 +69,30 @@ $small-break : 716px;
 
   p {
     margin: 0;
-    font-weight: 600;
+    font-weight: 300;
+  }
+
+  span {
+    font-weight: 700;
+  }
+
+  div {
+    width: 33%;
+  }
+
+  .left {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+  }
+
+  .right {
+    display: flex;
+    justify-content: flex-end;
   }
 }
 
