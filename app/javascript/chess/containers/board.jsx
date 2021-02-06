@@ -8,6 +8,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { selectChannel, fetchMessages } from '../actions/index';
 
+import interact from 'interactjs'
+
 class Board extends Component {
 
   componentWillMount() {
