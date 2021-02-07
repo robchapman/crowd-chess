@@ -8,6 +8,7 @@ class Api::V1::MovesController < ApplicationController
   def create
     # TODO if move not successfully created return message that will prevent
     # piece from moving on front end
+    # byebug
     moves = []
     moves << build_move(move_params[:start], move_params[:end])
 
@@ -38,7 +39,6 @@ class Api::V1::MovesController < ApplicationController
       FEN: new_fen,
       moves: moves
     }.to_json
-
   end
 
   private

@@ -44,9 +44,6 @@ class Api::V1::PlaysController < ApplicationController
   def set_play
     player = current_user || AnonUser.find_by(nickname: session[:anonNickname])
     @play = player.plays.where(game_id: params[:game_id])[0]
-    helpers.flag
-    puts @play.active
-    helpers.flag
   end
 
   def play_params
