@@ -4,7 +4,12 @@ import { connect } from 'react-redux';
 
 import { selectPiece, makeMove } from '../actions';
 
+import interact from 'interactjs'
+
 class Space extends Component {
+  componentDidMount() {
+    this.dragSetUp();
+  }
   handleClick = () => {
     if (this.props.space.highlight) {
       this.props.makeMove(this.props.space, this.props.selectedSpace, this.props.FEN, this.props.currentGame);
@@ -13,11 +18,15 @@ class Space extends Component {
     }
   }
 
+  dragSetUp() {
+
+  }
+
   renderPiece = (pieceType, pieceTeam, selected) => {
     if (pieceType) {
       return (
         <i
-          className={`fas fa-chess-${pieceType} piece-${pieceTeam} ${selected}`}
+          className={`fas fa-chess-${pieceType} piece-${pieceTeam} ${selected} draggable-piece`}
         ></i>);
     } else {
       return null;

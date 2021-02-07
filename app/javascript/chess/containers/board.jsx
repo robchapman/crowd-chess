@@ -8,12 +8,14 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { selectChannel, fetchMessages } from '../actions/index';
 
-import interact from 'interactjs'
+// import interact from 'interactjs'
 
 class Board extends Component {
 
   componentWillMount() {
     this.fetchBoard();
+
+    // this.draggableSetUp();
 
     // Actioncable listening
     let boundSetBoard = this.props.setBoard.bind(this);
@@ -37,6 +39,24 @@ class Board extends Component {
   fetchBoard = () => {
     this.props.fetchBoard(this.props.currentGame);
   }
+
+
+  // draggableSetUp = () => {
+  //   const position = { x: 0, y: 0 }
+  //   interact('.draggable-piece').draggable({
+  //     listeners: {
+  //       start(event) {
+  //       },
+  //       move (event) {
+  //         position.x += event.dx
+  //         position.y += event.dy
+
+  //         event.target.style.transform =
+  //           `translate(${position.x}px, ${position.y}px)`
+  //       }
+  //     }
+  //   })
+  // }
 
   render() {
     return (
