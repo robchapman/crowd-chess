@@ -53,7 +53,9 @@ export function makeMove(clickedSpace, selectedSpace, FEN, game) {
   // Check if move would produce a game over condition
   // If so send a fetch request to alter GameMaster Model
   let compMoves = null;
-  if (!causeGameOver(clickedSpace, selectedSpace, FEN)) {
+  console.log(FEN[FEN.length - 1]);
+  // if (!causeGameOver(clickedSpace, selectedSpace, FEN)) {
+  if (parseInt(FEN[FEN.length - 1]) < 2) {
   // if (false) {
     compMoves = getNextMoveOptions(clickedSpace, selectedSpace, FEN);
   } else {
@@ -63,6 +65,7 @@ export function makeMove(clickedSpace, selectedSpace, FEN, game) {
   if (confirmMove(clickedSpace, selectedSpace, FEN)) {
     const url = `${BASE_URL}/${game}/moves`;
     const moveBody = {move: { start: selectedSpace.id, end: clickedSpace.id, comp_moves: compMoves}};
+    console.log(moveBody);
     promise = moveFetch(url, moveBody);
   }
   return {
@@ -101,11 +104,13 @@ const getNextMoveOptions = (clickedSpace, selectedSpace, FEN) => {
   chess.move(sloppyMove, {sloppy: true});
   const moves = chess.moves({verbose: true });
   const captures = moves.filter(move => move.flags.includes('c'));
-  if (captures.length > 0) {
-    return captures.map((move)=>{return {end: move.to, start: move.from} });
-  } else {
+  // if (captures.length > 0) {
+  //   return captures.map((move)=>{return {end: move.to, start: move.from} });
+  // } else {
+  //   return moves.map((move)=>{return {end: move.to, start: move.from} });
+  // }
     return moves.map((move)=>{return {end: move.to, start: move.from} });
-  }
+
 }
 
 const getMoveOptions = (clickedSpace, FEN) => {
